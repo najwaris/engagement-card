@@ -15,68 +15,97 @@ export const FloralCorner = ({ className = "" }: { className?: string }) => (
     fill="currentColor"
   >
     <defs>
+      {/* Gradient for stroke + flower fill */}
       <linearGradient id="roseGoldGradient" x1="0%" y1="100%" x2="100%" y2="0%">
         <stop offset="0%" stopColor="#7a4a4a" />
-        <stop offset="50%" stopColor="#b98f8f" />
-        <stop offset="100%" stopColor="#e8c7a6" />
+        <stop offset="50%" stopColor="#c9a2a2" />
+        <stop offset="100%" stopColor="#e4c2a5" />
+      </linearGradient>
+
+      {/* Soft drop shadow */}
+      <filter id="softShadow" x="-20%" y="-20%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="1.2" result="shadow" />
+        <feOffset dx="1" dy="1" />
+        <feMerge>
+          <feMergeNode in="shadow" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      {/* Shimmer Animation */}
+      <linearGradient id="shimmerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="rgba(255,255,255,0.0)" />
+        <stop offset="50%" stopColor="rgba(255,255,255,0.4)" />
+        <stop offset="100%" stopColor="rgba(255,255,255,0.0)" />
+        <animate
+          attributeName="x1"
+          values="0%;100%"
+          dur="4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="x2"
+          values="100%;200%"
+          dur="4s"
+          repeatCount="indefinite"
+        />
       </linearGradient>
     </defs>
 
-    {/* Main curved stroke */}
-    <path
-      d="M6 94 Q8 18 88 8"
-      fill="none"
-      stroke="url(#roseGoldGradient)"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-    />
+    {/* Main stroke + decoration with shimmer overlay */}
+    <g filter="url(#softShadow)">
+      <path
+        d="M6 94 Q8 18 88 8"
+        fill="none"
+        stroke="url(#roseGoldGradient)"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M12 88 C26 66 42 58 60 60"
+        fill="none"
+        stroke="url(#roseGoldGradient)"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M76 20 C66 30 56 46 58 64"
+        fill="none"
+        stroke="url(#roseGoldGradient)"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </g>
 
-    {/* Decorative swirls */}
-    <path
-      d="M12 88 C26 66 42 58 60 60"
-      fill="none"
-      stroke="url(#roseGoldGradient)"
-      strokeWidth="1.2"
-      strokeLinecap="round"
-    />
-    <path
-      d="M76 20 C66 30 56 46 58 64"
-      fill="none"
-      stroke="url(#roseGoldGradient)"
-      strokeWidth="1.2"
-      strokeLinecap="round"
-    />
-
-    {/* Flower cluster 🌸 */}
-    <g fill="url(#roseGoldGradient)">
-      {/* Main bloom */}
+    {/* Botanical cluster */}
+    <g fill="url(#roseGoldGradient)" filter="url(#softShadow)">
       <circle cx="18" cy="82" r="3.8" />
       <circle cx="21" cy="79" r="2.8" />
       <circle cx="15" cy="84" r="2.4" />
 
-      {/* Petals around main bloom */}
       <ellipse cx="23" cy="82" rx="4" ry="2" transform="rotate(-35 23 82)" />
       <ellipse cx="16" cy="78" rx="3" ry="1.6" transform="rotate(-45 16 78)" />
       <ellipse cx="20" cy="86" rx="3" ry="1.8" transform="rotate(-60 20 86)" />
 
-      {/* Extra blossoms along line */}
       <circle cx="28" cy="72" r="2" />
       <circle cx="33" cy="68" r="1.4" />
       <circle cx="70" cy="28" r="2" />
       <circle cx="74" cy="24" r="1.4" />
 
-      {/* Buds and sparkles ✨ */}
       <circle cx="26" cy="75" r="1" />
       <circle cx="66" cy="30" r="1" />
       <circle cx="80" cy="18" r="2" />
     </g>
 
-    {/* Leaves for a richer botanical style */}
-    <g stroke="url(#roseGoldGradient)" strokeWidth="1" fill="none">
-      <path d="M25 78 C28 76 30 74 32 71" />
-      <path d="M72 25 C74 23 76 21 78 19" />
-      <path d="M14 88 C17 85 18 83 20 80" />
-    </g>
+    {/* 🌟 The shimmer highlight (overlay on strokes) */}
+    <path
+      d="M6 94 Q8 18 88 8"
+      stroke="url(#shimmerGradient)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+      opacity="0.4"
+    />
   </svg>
 );
 
