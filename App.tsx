@@ -92,7 +92,7 @@ const App: React.FC = () => {
       />
 
       {/* 1. HERO SECTION (PDF Page 1 Style) */}
-      <Section id="hero" className="bg-[#f2e6e6]">
+      <Section id="hero" className="bg-[#fdf3f3]">
         <BismillahIcon />
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
@@ -101,19 +101,19 @@ const App: React.FC = () => {
           className="mb-8"
         >
           <div className="relative inline-block mb-4">
-             <Heart className="mx-auto text-[#b07d7d] fill-[#b07d7d]/10" />
+             <Heart className="mx-auto text-[#C87374] fill-[#C87374]/10" />
              <motion.div 
                animate={{ scale: [1, 1.2, 1] }} 
                transition={{ repeat: Infinity, duration: 2 }}
                className="absolute -top-1 -right-1"
              >
-               <div className="w-2 h-2 bg-[#b07d7d] rounded-full" />
+               <div className="w-2 h-2 bg-[#C87374] rounded-full" />
              </motion.div>
           </div>
           <h2 className="text-[10px] uppercase font-bold tracking-[0.5em] text-[#8a6e6e] mb-6">Majlis Pertunangan</h2>
-          <h1 className="text-5xl font-serif-elegant text-[#b07d7d] mb-2 tracking-tight">Athirah</h1>
+          <h1 className="text-5xl font-serif-elegant text-[#C87374] mb-2 tracking-tight">Athirah</h1>
           <span className="text-3xl font-serif-elegant text-[#8a6e6e] opacity-60 italic">&</span>
-          <h1 className="text-5xl font-serif-elegant text-[#b07d7d] mt-2 tracking-tight">Fahmi</h1>
+          <h1 className="text-5xl font-serif-elegant text-[#C87374] mt-2 tracking-tight">Fahmi</h1>
         </motion.div>
         
         <p className="text-xs font-bold tracking-[0.3em] text-[#8a6e6e] mb-6 uppercase">Isnin | 23 . 03 . 2026</p>
@@ -132,7 +132,7 @@ const App: React.FC = () => {
           onClick={() => scrollToSection('couple')}
           className="cursor-pointer"
         >
-          <ChevronDown className="mx-auto text-[#b07d7d]/50" />
+          <ChevronDown className="mx-auto text-[#C87374]/50" />
         </motion.div>
       </Section>
 
@@ -140,18 +140,18 @@ const App: React.FC = () => {
       <Section id="couple" className="bg-white">
          <div className="space-y-12">
            <div>
-             <h3 className="font-serif-elegant text-3xl text-[#b07d7d] mb-2">Siti Nur Athirah</h3>
+             <h3 className="font-serif-elegant text-3xl text-[#C87374] mb-2">Athirah</h3>
              <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest font-bold">Puteri kepada</p>
              <p className="text-xs text-[#8a6e6e] italic mt-1">Encik Isnin Bin Katsubi & Puan Amirohaida Binti Mahaidin</p>
            </div>
            
            <div className="relative py-4">
-             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#b07d7d]/5 rounded-full blur-xl" />
+             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#C87374]/5 rounded-full blur-xl" />
              <RingIcon />
            </div>
            
            <div>
-             <h3 className="font-serif-elegant text-3xl text-[#b07d7d] mb-2">Muhammad Fahmi</h3>
+             <h3 className="font-serif-elegant text-3xl text-[#C87374] mb-2">Muhammad Fahmi</h3>
              <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest font-bold">Putera kepada</p>
              <p className="text-xs text-[#8a6e6e] italic mt-1">Encik Saleh & Puan (Placeholder)</p>
            </div>
@@ -162,8 +162,8 @@ const App: React.FC = () => {
       <Section id="prayer" className="bg-[#faf5f5] relative overflow-hidden">
         <div className="py-8 px-4 space-y-8">
           <div className="space-y-2">
-            <p className="text-[10px] text-[#b07d7d] font-bold uppercase tracking-[0.2em]">Cincin sebentuk tanda muafakat</p>
-            <p className="text-[10px] text-[#b07d7d] font-bold uppercase tracking-[0.2em]">Cincin dua bentuk tanda terikat</p>
+            <p className="text-[10px] text-[#C87374] font-bold uppercase tracking-[0.2em]">Cincin sebentuk tanda muafakat</p>
+            <p className="text-[10px] text-[#C87374] font-bold uppercase tracking-[0.2em]">Cincin dua bentuk tanda terikat</p>
           </div>
 
           <BismillahIcon />
@@ -181,7 +181,7 @@ const App: React.FC = () => {
           </div>
 
           <div className="pt-4">
-             <p className="text-2xl font-serif-elegant text-[#b07d7d]">آمِيْن اَللّهُمَّ آمِيْن</p>
+             <p className="text-2xl font-serif-elegant text-[#C87374]">آمِيْن اَللّهُمَّ آمِيْن</p>
              <p className="text-[9px] text-[#8a6e6e] uppercase tracking-widest mt-2 font-bold">Amin Allahumma Amin</p>
           </div>
         </div>
@@ -190,28 +190,28 @@ const App: React.FC = () => {
       {/* 4. EVENT SECTION (PDF Page 4 Data) */}
       <Section id="event" className="bg-white">
         <div className="space-y-8">
-          <Calendar className="mx-auto text-[#b07d7d] opacity-60" />
-          <h2 className="text-2xl font-serif-elegant text-[#b07d7d]">Butiran Majlis</h2>
+          <Calendar className="mx-auto text-[#C87374] opacity-60" />
+          <h2 className="text-2xl font-serif-elegant text-[#C87374]">Butiran Majlis</h2>
           
-          <div className="bg-[#faf5f5] p-8 rounded-[2.5rem] border border-[#b07d7d]/10 shadow-sm relative overflow-hidden group">
+          <div className="bg-[#faf5f5] p-8 rounded-[2.5rem] border border-[#C87374]/10 shadow-sm relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
               <Calendar size={40} />
             </div>
             
-            <p className="font-bold text-[#b07d7d] tracking-widest uppercase text-[10px] mb-2">Isnin</p>
+            <p className="font-bold text-[#C87374] tracking-widest uppercase text-[10px] mb-2">Isnin</p>
             <p className="text-3xl font-serif-elegant text-[#6b4f4f] mb-4">23 Mac 2026</p>
             
-            <div className="h-px w-12 bg-[#b07d7d]/20 mx-auto mb-6" />
+            <div className="h-px w-12 bg-[#C87374]/20 mx-auto mb-6" />
             
             <div className="space-y-1 mb-8">
                <p className="text-sm font-bold text-[#6b4f4f]">Jamuan Makan:</p>
-               <p className="text-lg font-serif-elegant text-[#b07d7d]">1.00 PM</p>
+               <p className="text-lg font-serif-elegant text-[#C87374]">1.00 PM</p>
                <p className="text-[10px] text-[#8a6e6e] uppercase tracking-tighter">(Lepas Zohor)</p>
             </div>
             
-            <div className="space-y-4 pt-4 border-t border-[#b07d7d]/5">
+            <div className="space-y-4 pt-4 border-t border-[#C87374]/5">
               <div className="flex flex-col items-center text-center">
-                <MapPin size={16} className="text-[#b07d7d] mb-2" />
+                <MapPin size={16} className="text-[#C87374] mb-2" />
                 <p className="text-xs text-[#6b4f4f] leading-relaxed font-medium">
                   65, Jalan KI 5, Taman Krubong Indah,<br />75250 Melaka
                 </p>
@@ -226,7 +226,7 @@ const App: React.FC = () => {
               href={mapUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-[#b07d7d] text-white px-8 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl shadow-[#b07d7d]/20 transition-all"
+              className="flex items-center gap-2 bg-[#C87374] text-white px-8 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl shadow-[#C87374]/20 transition-all"
             >
               <MapIcon size={14} /> Navigasi Lokasi
             </motion.a>
@@ -240,8 +240,8 @@ const App: React.FC = () => {
 
       {/* 5. GUESTBOOK SECTION */}
       <Section id="guestbook" className="bg-[#faf5f5]">
-        <MessageSquare className="mx-auto text-[#b07d7d] mb-4 opacity-60" />
-        <h2 className="text-2xl font-serif-elegant text-[#b07d7d] mb-8">Ucapan & Doa</h2>
+        <MessageSquare className="mx-auto text-[#C87374] mb-4 opacity-60" />
+        <h2 className="text-2xl font-serif-elegant text-[#C87374] mb-8">Ucapan & Doa</h2>
         <Guestbook />
       </Section>
 
@@ -252,11 +252,11 @@ const App: React.FC = () => {
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className="fixed bottom-8 inset-x-0 mx-auto z-50 w-[85%] max-w-sm"
       >
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl shadow-[#b07d7d]/20 border border-white/40 p-1 flex items-center justify-around">
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl shadow-[#C87374]/20 border border-white/40 p-1 flex items-center justify-around">
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowContactModal(true)} 
-            className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors rounded-xl active:bg-[#b07d7d]/5"
+            className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#C87374] transition-colors rounded-xl active:bg-[#C87374]/5"
           >
             <Phone size={18} strokeWidth={2} />
             <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Kenalan</span>
@@ -265,7 +265,7 @@ const App: React.FC = () => {
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollToSection('event')} 
-            className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors rounded-xl active:bg-[#b07d7d]/5 border-x border-[#b07d7d]/5"
+            className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#C87374] transition-colors rounded-xl active:bg-[#C87374]/5 border-x border-[#C87374]/5"
           >
             <MapIcon size={18} strokeWidth={2} />
             <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Lokasi</span>
@@ -274,7 +274,7 @@ const App: React.FC = () => {
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowPlaylistModal(true)} 
-            className={`flex-1 flex flex-col items-center justify-center py-3 px-2 transition-all rounded-xl active:bg-[#b07d7d]/5 ${isMusicPlaying ? 'text-[#b07d7d]' : 'text-[#6b4f4f]'}`}
+            className={`flex-1 flex flex-col items-center justify-center py-3 px-2 transition-all rounded-xl active:bg-[#C87374]/5 ${isMusicPlaying ? 'text-[#C87374]' : 'text-[#6b4f4f]'}`}
           >
             <div className={isMusicPlaying ? 'animate-spin-slow' : ''}>
               {isMusicPlaying ? <Music size={18} strokeWidth={2} /> : <Music2 size={18} strokeWidth={2} />}
@@ -301,20 +301,20 @@ const App: React.FC = () => {
             >
               <button 
                 onClick={() => setShowContactModal(false)}
-                className="absolute top-6 right-6 text-[#8a6e6e] hover:text-[#b07d7d] transition-colors"
+                className="absolute top-6 right-6 text-[#8a6e6e] hover:text-[#C87374] transition-colors"
               >
                 <X size={20} />
               </button>
               
-              <h3 className="text-xl font-serif-elegant text-[#b07d7d] mb-6 text-center">Hubungi</h3>
+              <h3 className="text-xl font-serif-elegant text-[#C87374] mb-6 text-center">Hubungi</h3>
               
               <div className="space-y-6">
-                <div className="flex justify-between items-center border-b border-[#b07d7d]/10 pb-4">
+                <div className="flex justify-between items-center border-b border-[#C87374]/10 pb-4">
                   <div>
                     <p className="text-sm font-bold text-[#6b4f4f]">Encik Isnin</p>
                     <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest">Bapa Athirah</p>
                   </div>
-                  <a href="tel:0123456789" className="p-2 bg-[#b07d7d]/10 rounded-full text-[#b07d7d] hover:bg-[#b07d7d]/20 transition-colors">
+                  <a href="tel:0123456789" className="p-2 bg-[#C87374]/10 rounded-full text-[#C87374] hover:bg-[#C87374]/20 transition-colors">
                     <Phone size={16} />
                   </a>
                 </div>
@@ -323,7 +323,7 @@ const App: React.FC = () => {
                     <p className="text-sm font-bold text-[#6b4f4f]">Puan Amirohaida</p>
                     <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest">Ibu Athirah</p>
                   </div>
-                  <a href="tel:0123456789" className="p-2 bg-[#b07d7d]/10 rounded-full text-[#b07d7d] hover:bg-[#b07d7d]/20 transition-colors">
+                  <a href="tel:0123456789" className="p-2 bg-[#C87374]/10 rounded-full text-[#C87374] hover:bg-[#C87374]/20 transition-colors">
                     <Phone size={16} />
                   </a>
                 </div>
@@ -350,12 +350,12 @@ const App: React.FC = () => {
             >
               <button 
                 onClick={() => setShowPlaylistModal(false)}
-                className="absolute top-6 right-6 text-[#8a6e6e] hover:text-[#b07d7d] transition-colors z-10"
+                className="absolute top-6 right-6 text-[#8a6e6e] hover:text-[#C87374] transition-colors z-10"
               >
                 <X size={20} />
               </button>
               
-              <h3 className="text-xl font-serif-elegant text-[#b07d7d] mb-2 text-center">Playlist</h3>
+              <h3 className="text-xl font-serif-elegant text-[#C87374] mb-2 text-center">Playlist</h3>
               <p className="text-[9px] uppercase tracking-[0.2em] text-[#8a6e6e] font-bold text-center mb-6">Pilih Lagu</p>
               
               <div className="space-y-4 mb-8">
@@ -364,30 +364,30 @@ const App: React.FC = () => {
                     key={idx}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => changeSong(idx)}
-                    className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all ${currentSongIndex === idx ? 'bg-[#b07d7d]/10 text-[#b07d7d]' : 'bg-transparent text-[#6b4f4f] hover:bg-[#b07d7d]/5'}`}
+                    className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all ${currentSongIndex === idx ? 'bg-[#C87374]/10 text-[#C87374]' : 'bg-transparent text-[#6b4f4f] hover:bg-[#C87374]/5'}`}
                   >
-                    <div className={`p-2 rounded-full ${currentSongIndex === idx ? 'bg-[#b07d7d] text-white' : 'bg-[#b07d7d]/10 text-[#b07d7d]'}`}>
+                    <div className={`p-2 rounded-full ${currentSongIndex === idx ? 'bg-[#C87374] text-white' : 'bg-[#C87374]/10 text-[#C87374]'}`}>
                       {currentSongIndex === idx && isMusicPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
                     </div>
                     <div className="text-left flex-1">
-                      <p className={`text-xs font-bold leading-none mb-1 ${currentSongIndex === idx ? 'text-[#b07d7d]' : 'text-[#6b4f4f]'}`}>{song.title}</p>
+                      <p className={`text-xs font-bold leading-none mb-1 ${currentSongIndex === idx ? 'text-[#C87374]' : 'text-[#6b4f4f]'}`}>{song.title}</p>
                       {currentSongIndex === idx && <p className="text-[9px] uppercase tracking-widest opacity-60">Sedang Dimainkan</p>}
                     </div>
                   </motion.button>
                 ))}
               </div>
 
-              <div className="flex items-center justify-center gap-6 pt-4 border-t border-[#b07d7d]/10">
-                <button onClick={() => changeSong((currentSongIndex - 1 + SONGS.length) % SONGS.length)} className="text-[#8a6e6e] hover:text-[#b07d7d]">
+              <div className="flex items-center justify-center gap-6 pt-4 border-t border-[#C87374]/10">
+                <button onClick={() => changeSong((currentSongIndex - 1 + SONGS.length) % SONGS.length)} className="text-[#8a6e6e] hover:text-[#C87374]">
                   <SkipBack size={20} />
                 </button>
                 <button 
                   onClick={toggleMusic} 
-                  className="w-12 h-12 bg-[#b07d7d] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#b07d7d]/20"
+                  className="w-12 h-12 bg-[#C87374] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#C87374]/20"
                 >
                   {isMusicPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
                 </button>
-                <button onClick={() => changeSong((currentSongIndex + 1) % SONGS.length)} className="text-[#8a6e6e] hover:text-[#b07d7d]">
+                <button onClick={() => changeSong((currentSongIndex + 1) % SONGS.length)} className="text-[#8a6e6e] hover:text-[#C87374]">
                   <SkipForward size={20} />
                 </button>
               </div>
@@ -399,8 +399,8 @@ const App: React.FC = () => {
       <footer className="bg-[#faf5f5] pt-12 pb-32 text-center">
         <p className="text-[10px] text-[#8a6e6e] uppercase tracking-[0.3em] mb-4">Terima Kasih</p>
         <div className="flex flex-col items-center gap-1 opacity-60">
-           <Heart size={10} className="text-[#b07d7d] fill-[#b07d7d]" />
-           <p className="text-[9px] text-[#b07d7d] font-medium tracking-wide">Created with much love by Najwa</p>
+           <Heart size={10} className="text-[#C87374] fill-[#C87374]" />
+           <p className="text-[9px] text-[#C87374] font-medium tracking-wide">Created with much love by Najwa</p>
         </div>
       </footer>
 

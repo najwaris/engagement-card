@@ -2,11 +2,29 @@
 import React from 'react';
 
 export const COLORS = {
-  primary: '#b07d7d', // Dusty Rose
+  primary: '#C87374', // Elegant Darker Rose
   secondary: '#6b4f4f', // Deep Brown
   background: '#fff9f9', // Soft Cream
   accent: '#e2b1b1', // Lighter Pink
 };
+
+// Global Filter Definition for reuse across custom SVGs
+const SvgFilters = () => (
+  <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="subtleShadow" x="-20%" y="-20%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="1.2" result="blur" />
+        <feOffset dx="1" dy="1" result="offsetBlur" />
+        <feFlood floodColor="black" floodOpacity="0.15" result="offsetColor" />
+        <feComposite in="offsetColor" in2="offsetBlur" operator="in" result="shadow" />
+        <feMerge>
+          <feMergeNode in="shadow" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+);
 
 export const FloralCorner = ({ className = "" }: { className?: string }) => (
   <svg
@@ -110,9 +128,9 @@ export const FloralCorner = ({ className = "" }: { className?: string }) => (
 );
 
 export const BismillahIcon = () => (
-  <div className="flex justify-center my-6">
+  <div className="flex justify-center my-6 drop-shadow-md">
     <span 
-      className="text-4xl md:text-5xl text-[#b07d7d] opacity-90 leading-none select-none" 
+      className="text-4xl md:text-5xl text-[#C87374] opacity-90 leading-none select-none" 
       style={{ fontFamily: 'serif' }}
       aria-label="Bismillah"
     >
@@ -123,8 +141,9 @@ export const BismillahIcon = () => (
 
 export const RingIcon = () => (
   <div className="flex justify-center items-center py-4">
+    <SvgFilters />
     <svg 
-      className="w-16 h-16 text-[#b07d7d]" 
+      className="w-16 h-16 text-[#C87374]" 
       viewBox="0 0 24 24" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
@@ -132,6 +151,7 @@ export const RingIcon = () => (
       strokeWidth="1.2" 
       strokeLinecap="round" 
       strokeLinejoin="round"
+      style={{ filter: 'url(#subtleShadow)' }}
     >
       {/* Right Ring */}
       <circle cx="15.5" cy="13.5" r="5.5" />

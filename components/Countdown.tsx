@@ -57,8 +57,8 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
           }}
           className="flex flex-col items-center group cursor-default"
         >
-          <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-[#b07d7d]/10 rounded-2xl shadow-sm flex items-center justify-center mb-2 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-0.5 group-hover:border-[#b07d7d]/30">
-            <span className="text-xl md:text-2xl font-serif-elegant font-bold text-[#b07d7d]">
+          <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-[#C87374]/10 rounded-2xl shadow-sm flex items-center justify-center mb-2 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-0.5 group-hover:border-[#C87374]/30">
+            <span className="text-xl md:text-2xl font-serif-elegant font-bold text-[#C87374]">
               {value.toString().padStart(2, '0')}
             </span>
           </div>
