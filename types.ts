@@ -1,4 +1,7 @@
 
+// Add React import to support React.ReactNode type reference
+import React from 'react';
+
 export interface SectionProps {
   id: string;
   className?: string;

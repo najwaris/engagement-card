@@ -138,42 +138,45 @@ const App: React.FC = () => {
         <Guestbook />
       </Section>
 
-      {/* FIXED BOTTOM NAV BAR - 3 SECTIONS: KENALAN, LOKASI, PLAYLIST */}
+      {/* REFINED DOCK-STYLE BOTTOM NAV BAR */}
       <motion.nav 
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="fixed bottom-6 inset-x-0 mx-auto z-50 w-[92%] max-w-sm px-2"
+        className="fixed bottom-8 inset-x-0 mx-auto z-50 w-[85%] max-w-sm"
       >
-        <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-2xl shadow-[#b07d7d]/30 border border-white/50 p-2 flex items-center">
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl shadow-[#b07d7d]/20 border border-white/40 p-1 flex items-center justify-around">
           {/* Section 1: Kenalan */}
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.9 }}
             onClick={() => setShowContactModal(true)} 
-            className="flex-1 flex flex-col items-center justify-center p-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors focus:outline-none"
+            className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors rounded-xl active:bg-[#b07d7d]/5"
           >
-            <Phone size={20} />
-            <span className="text-[10px] uppercase font-bold tracking-tighter mt-1">Kenalan</span>
-          </button>
+            <Phone size={18} strokeWidth={2} />
+            <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Hubungi</span>
+          </motion.button>
           
-          {/* Section 2: Lokasi (Featured Center) */}
-          <button 
+          {/* Section 2: Lokasi */}
+          <motion.button 
+            whileTap={{ scale: 0.9 }}
             onClick={() => scrollToSection('event')} 
-            className="flex-1 flex flex-col items-center justify-center p-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors focus:outline-none border-x border-[#b07d7d]/10"
+            className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors rounded-xl active:bg-[#b07d7d]/5 border-x border-[#b07d7d]/5"
           >
-            <MapIcon size={20} />
-            <span className="text-[10px] uppercase font-bold tracking-tighter mt-1">Lokasi</span>
-          </button>
+            <MapIcon size={18} strokeWidth={2} />
+            <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Lokasi</span>
+          </motion.button>
 
           {/* Section 3: Playlist */}
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.9 }}
             onClick={toggleMusic} 
-            className={`flex-1 flex flex-col items-center justify-center p-2 transition-all focus:outline-none ${isMusicPlaying ? 'text-[#b07d7d]' : 'text-[#6b4f4f]'}`}
+            className={`flex-1 flex flex-col items-center justify-center py-3 px-2 transition-all rounded-xl active:bg-[#b07d7d]/5 ${isMusicPlaying ? 'text-[#b07d7d]' : 'text-[#6b4f4f]'}`}
           >
             <div className={isMusicPlaying ? 'animate-spin-slow' : ''}>
-              {isMusicPlaying ? <Music size={20} /> : <Music2 size={20} />}
+              {isMusicPlaying ? <Music size={18} strokeWidth={2} /> : <Music2 size={18} strokeWidth={2} />}
             </div>
-            <span className="text-[10px] uppercase font-bold tracking-tighter mt-1">Playlist</span>
-          </button>
+            <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Playlist</span>
+          </motion.button>
         </div>
       </motion.nav>
 
@@ -226,9 +229,13 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <footer className="bg-[#f2e6e6] pt-12 pb-24 text-center">
-        <p className="text-[10px] text-[#8a6e6e] uppercase tracking-[0.3em] mb-2">Terima Kasih</p>
-        <p className="text-[8px] text-[#b07d7d] italic opacity-80">Created with much love by Najwa</p>
+      {/* Increased padding-bottom (pb-32) to ensure credits aren't hidden by the dock */}
+      <footer className="bg-[#f2e6e6] pt-12 pb-32 text-center">
+        <p className="text-[10px] text-[#8a6e6e] uppercase tracking-[0.3em] mb-3">Terima Kasih</p>
+        <div className="flex flex-col items-center gap-1 opacity-70">
+           <Heart size={10} className="text-[#b07d7d] fill-[#b07d7d]" />
+           <p className="text-[9px] text-[#b07d7d] font-medium tracking-wide">Created with much love by Najwa</p>
+        </div>
       </footer>
 
       <style>{`
