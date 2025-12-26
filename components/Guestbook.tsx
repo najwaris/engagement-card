@@ -21,10 +21,10 @@ const Guestbook: React.FC = () => {
     if (saved) {
       setWishes(JSON.parse(saved));
     } else {
-      // Default placeholder wishes
       const defaults = [
         { id: '1', name: 'Zafirah & Rizwan', message: 'Selamat bertunang Athirah & Fahmi! Semoga dipermudahkan segala urusan ke jinjang pelamin.', date: '12/10/2025' },
-        { id: '2', name: 'Amirul Hakim', message: 'Barakallah! Tahniah korang. Tak sabar nak tunggu hari besar nanti.', date: '15/10/2025' }
+        { id: '2', name: 'Amirul Hakim', message: 'Barakallah! Tahniah korang. Tak sabar nak tunggu hari besar nanti.', date: '15/10/2025' },
+        { id: '3', name: 'Nadia & Aiman', message: 'Semoga ikatan ini diberkati hingga ke syurga. Tahniah Athirah!', date: '18/10/2025' }
       ];
       setWishes(defaults);
       localStorage.setItem('engagement_wishes', JSON.stringify(defaults));
@@ -36,7 +36,7 @@ const Guestbook: React.FC = () => {
     if (wishes.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % wishes.length);
-    }, 5000);
+    }, 4500); // Slightly faster cycle for better engagement
     return () => clearInterval(interval);
   }, [wishes.length]);
 
@@ -56,50 +56,45 @@ const Guestbook: React.FC = () => {
     localStorage.setItem('engagement_wishes', JSON.stringify(updated));
     setName('');
     setMessage('');
-    setCurrentIndex(0); // View the newest wish immediately
+    setCurrentIndex(0);
   };
 
   return (
     <div className="w-full space-y-8">
-      {/* Featured Wish Gallery */}
-      <div className="relative h-48 flex items-center justify-center bg-transparent group">
+      {/* Featured Wish Gallery (Lookalike Gallery) */}
+      <div className="relative h-44 flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait">
           {wishes.length > 0 && (
             <motion.div
               key={wishes[currentIndex].id}
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.05, y: -10 }}
-              whileHover={{ 
-                scale: 1.02, 
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                boxShadow: "0 10px 30px -10px rgba(176, 125, 125, 0.2)"
-              }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-white/20 backdrop-blur-[2px] rounded-[2.5rem] border border-[#b07d7d]/10 transition-all"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 bg-white/40 rounded-[2.5rem] border border-[#b07d7d]/5 backdrop-blur-sm"
             >
-              <Quote className="w-5 h-5 text-[#b07d7d]/30 mb-3" />
-              <p className="text-[#6b4f4f] font-serif-elegant italic text-sm md:text-base leading-relaxed mb-3 line-clamp-3">
+              <Quote className="w-4 h-4 text-[#b07d7d]/30 mb-3" />
+              <p className="text-[#6b4f4f] font-serif-elegant italic text-xs md:text-sm leading-relaxed mb-3 line-clamp-3">
                 "{wishes[currentIndex].message}"
               </p>
               <div className="flex items-center gap-2">
-                <span className="h-px w-3 bg-[#b07d7d]/20" />
+                <span className="h-px w-3 bg-[#b07d7d]/10" />
                 <p className="text-[9px] font-bold text-[#b07d7d] uppercase tracking-[0.2em]">
                   {wishes[currentIndex].name}
                 </p>
-                <span className="h-px w-3 bg-[#b07d7d]/20" />
+                <span className="h-px w-3 bg-[#b07d7d]/10" />
               </div>
             </motion.div>
           )}
         </AnimatePresence>
         
-        {/* Gallery Indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {/* Indicators */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1 z-10">
           {wishes.slice(0, 5).map((_, idx) => (
             <button 
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`h-1 rounded-full transition-all duration-500 focus:outline-none ${idx === currentIndex ? 'w-4 bg-[#b07d7d]' : 'w-1 bg-[#b07d7d]/20'}`}
+              className={`h-0.5 rounded-full transition-all duration-500 focus:outline-none ${idx === currentIndex ? 'w-3 bg-[#b07d7d]' : 'w-1 bg-[#b07d7d]/20'}`}
             />
           ))}
         </div>
@@ -116,7 +111,7 @@ const Guestbook: React.FC = () => {
           placeholder="Nama Anda"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full bg-white/80 border border-[#b07d7d]/10 rounded-2xl px-4 py-3 text-sm text-[#6b4f4f] focus:outline-none focus:ring-2 focus:ring-[#b07d7d]/20 placeholder:text-[#8a6e6e]/60 shadow-inner transition-all"
+          className="w-full bg-white/80 border border-[#b07d7d]/10 rounded-2xl px-4 py-3 text-xs text-[#6b4f4f] focus:outline-none focus:ring-1 focus:ring-[#b07d7d]/20 placeholder:text-[#8a6e6e]/40 transition-all"
           required
         />
         <textarea
@@ -124,21 +119,21 @@ const Guestbook: React.FC = () => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={3}
-          className="w-full bg-white/80 border border-[#b07d7d]/10 rounded-2xl px-4 py-3 text-sm text-[#6b4f4f] focus:outline-none focus:ring-2 focus:ring-[#b07d7d]/20 placeholder:text-[#8a6e6e]/60 shadow-inner transition-all resize-none"
+          className="w-full bg-white/80 border border-[#b07d7d]/10 rounded-2xl px-4 py-3 text-xs text-[#6b4f4f] focus:outline-none focus:ring-1 focus:ring-[#b07d7d]/20 placeholder:text-[#8a6e6e]/40 transition-all resize-none"
           required
         />
         <motion.button
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.98 }}
           type="submit"
-          className="w-full bg-[#b07d7d] text-white py-3 rounded-2xl text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#a06d6d] transition-colors shadow-lg shadow-[#b07d7d]/20"
+          className="w-full bg-[#b07d7d] text-white py-3 rounded-2xl text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2 hover:bg-[#a06d6d] transition-all"
         >
-          Hantar <Send size={12} />
+          Hantar <Send size={10} />
         </motion.button>
       </motion.form>
 
-      {/* Full Wish List Scroll */}
-      <div className="max-h-[200px] overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+      {/* List Scroll Area */}
+      <div className="max-h-[180px] overflow-y-auto pr-2 space-y-3 custom-scrollbar text-left">
         <AnimatePresence initial={false}>
           {wishes.map((wish) => (
             <motion.div 
@@ -146,13 +141,13 @@ const Guestbook: React.FC = () => {
               layout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white/20 p-3 rounded-xl border border-[#b07d7d]/5 text-left backdrop-blur-[1px]"
+              className="bg-white/20 p-3 rounded-2xl border border-[#b07d7d]/5 backdrop-blur-[1px]"
             >
-              <div className="flex justify-between items-start mb-1">
-                <p className="text-[10px] font-bold text-[#b07d7d]">{wish.name}</p>
-                <p className="text-[8px] text-[#8a6e6e] uppercase tracking-tighter">{wish.date}</p>
+              <div className="flex justify-between items-center mb-1">
+                <p className="text-[9px] font-bold text-[#b07d7d] uppercase tracking-tighter">{wish.name}</p>
+                <p className="text-[8px] text-[#8a6e6e] italic opacity-60">{wish.date}</p>
               </div>
-              <p className="text-xs text-[#6b4f4f] line-clamp-2">{wish.message}</p>
+              <p className="text-[11px] text-[#6b4f4f] leading-relaxed line-clamp-2">{wish.message}</p>
             </motion.div>
           ))}
         </AnimatePresence>
@@ -160,7 +155,7 @@ const Guestbook: React.FC = () => {
 
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {
-          width: 3px;
+          width: 2px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
           background: transparent;
@@ -168,6 +163,10 @@ const Guestbook: React.FC = () => {
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: rgba(176, 125, 125, 0.2);
           border-radius: 10px;
+        }
+        .custom-scrollbar {
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
         }
       `}</style>
     </div>

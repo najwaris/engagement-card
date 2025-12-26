@@ -33,14 +33,13 @@ const App: React.FC = () => {
 
   return (
     <div className="relative h-screen main-container no-scrollbar overflow-y-auto">
-      {/* Background Music */}
       <audio 
         ref={audioRef} 
         loop 
         src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
       />
 
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION (PDF Page 1 Style) */}
       <Section id="hero" className="bg-[#f2e6e6]">
         <BismillahIcon />
         <motion.div
@@ -49,80 +48,139 @@ const App: React.FC = () => {
           transition={{ duration: 1 }}
           className="mb-8"
         >
-          <Heart className="mx-auto text-[#b07d7d] mb-4 fill-[#b07d7d]/10" />
-          <h2 className="text-sm uppercase tracking-[0.4em] text-[#8a6e6e] mb-4">Majlis Pertunangan</h2>
-          <h1 className="text-5xl md:text-6xl font-serif-elegant text-[#b07d7d] mb-2">Athirah</h1>
-          <span className="text-3xl font-serif-elegant text-[#8a6e6e]">&</span>
-          <h1 className="text-5xl md:text-6xl font-serif-elegant text-[#b07d7d] mt-2">Fahmi</h1>
+          <div className="relative inline-block mb-4">
+             <Heart className="mx-auto text-[#b07d7d] fill-[#b07d7d]/10" />
+             <motion.div 
+               animate={{ scale: [1, 1.2, 1] }} 
+               transition={{ repeat: Infinity, duration: 2 }}
+               className="absolute -top-1 -right-1"
+             >
+               <div className="w-2 h-2 bg-[#b07d7d] rounded-full" />
+             </motion.div>
+          </div>
+          <h2 className="text-[10px] uppercase font-bold tracking-[0.5em] text-[#8a6e6e] mb-6">Majlis Pertunangan</h2>
+          <h1 className="text-5xl font-serif-elegant text-[#b07d7d] mb-2 tracking-tight">Athirah</h1>
+          <span className="text-3xl font-serif-elegant text-[#8a6e6e] opacity-60 italic">&</span>
+          <h1 className="text-5xl font-serif-elegant text-[#b07d7d] mt-2 tracking-tight">Fahmi</h1>
         </motion.div>
         
-        <p className="text-xs tracking-[0.2em] text-[#8a6e6e] mb-12 uppercase">Isnin | 23 Mac 2026</p>
+        <p className="text-xs font-bold tracking-[0.3em] text-[#8a6e6e] mb-6 uppercase">Isnin | 23 . 03 . 2026</p>
         
+        <div className="max-w-[250px] mx-auto mb-12">
+          <p className="text-[11px] text-[#8a6e6e] italic leading-relaxed">
+            "And We created you in pairs."
+            <br />
+            <span className="font-bold opacity-80">— Surah An-Naba (78:8)</span>
+          </p>
+        </div>
+
         <motion.div 
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
           onClick={() => scrollToSection('couple')}
           className="cursor-pointer"
         >
-          <ChevronDown className="mx-auto text-[#b07d7d]" />
+          <ChevronDown className="mx-auto text-[#b07d7d]/50" />
         </motion.div>
       </Section>
 
-      {/* 2. COUPLE SECTION */}
+      {/* 2. COUPLE SECTION (PDF Page 3 Data) */}
       <Section id="couple" className="bg-white">
          <div className="space-y-12">
            <div>
              <h3 className="font-serif-elegant text-3xl text-[#b07d7d] mb-2">Siti Nur Athirah</h3>
-             <p className="text-xs text-[#8a6e6e] italic">Puteri kepada Encik Kamal & Puan Salmah</p>
+             <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest font-bold">Puteri kepada</p>
+             <p className="text-xs text-[#8a6e6e] italic mt-1">Encik Isnin Bin Katsubi & Puan Amirohaida Binti Mahaidin</p>
            </div>
            
-           <RingIcon />
+           <div className="relative py-4">
+             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#b07d7d]/5 rounded-full blur-xl" />
+             <RingIcon />
+           </div>
            
            <div>
              <h3 className="font-serif-elegant text-3xl text-[#b07d7d] mb-2">Muhammad Fahmi</h3>
-             <p className="text-xs text-[#8a6e6e] italic">Putera kepada Encik Idris & Puan Zainab</p>
+             <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest font-bold">Putera kepada</p>
+             <p className="text-xs text-[#8a6e6e] italic mt-1">Encik Saleh & Puan (Placeholder)</p>
            </div>
-         </div>
-         
-         <div className="mt-12">
-           <p className="text-sm text-[#8a6e6e] italic leading-relaxed px-4">
-             "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
-             <br />
-             <span className="font-bold block mt-2">(Ar-Rum: 21)</span>
-           </p>
          </div>
       </Section>
 
-      {/* 3. EVENT SECTION */}
-      <Section id="event" className="bg-[#faf5f5]">
+      {/* 3. PRAYER SECTION (PDF Page 5 Data) */}
+      <Section id="prayer" className="bg-[#faf5f5] relative overflow-hidden">
+        {/* Visual representation of "torn paper" style from PDF cover */}
+        // <div className="absolute top-0 inset-x-0 h-4 bg-white shadow-sm z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 95% 70%, 90% 100%, 85% 70%, 80% 100%, 75% 70%, 70% 100%, 65% 70%, 60% 100%, 55% 70%, 50% 100%, 45% 70%, 40% 100%, 35% 70%, 30% 100%, 25% 70%, 20% 100%, 15% 70%, 10% 100%, 5% 70%, 0 100%)' }} />
+        
+        <div className="py-8 px-4 space-y-8">
+          <div className="space-y-2">
+            <p className="text-[10px] text-[#b07d7d] font-bold uppercase tracking-[0.2em]">Cincin sebentuk tanda muafakat</p>
+            <p className="text-[10px] text-[#b07d7d] font-bold uppercase tracking-[0.2em]">Cincin dua bentuk tanda terikat</p>
+          </div>
+
+          <BismillahIcon />
+
+          <div className="space-y-4 max-w-xs mx-auto">
+            <p className="text-sm text-[#6b4f4f] leading-relaxed">
+              Ya Allah, berkatilah pertunangan ini, limpahkan baraqah dan rahmat kepada pasangan ini.
+            </p>
+            <p className="text-sm text-[#6b4f4f] leading-relaxed">
+              Teguhkanlah hati dan keimanan mereka terhadapmu Ya Allah.
+            </p>
+            <p className="text-sm text-[#6b4f4f] leading-relaxed">
+              Kekalkanlah ikatan pertunangan mereka sehingga hari perkahwinan.
+            </p>
+          </div>
+
+          <div className="pt-4">
+             <p className="text-2xl font-serif-elegant text-[#b07d7d]">آمِيْن اَللّهُمَّ آمِيْن</p>
+             <p className="text-[9px] text-[#8a6e6e] uppercase tracking-widest mt-2 font-bold">Amin Allahumma Amin</p>
+          </div>
+        </div>
+      </Section>
+
+      {/* 4. EVENT SECTION (PDF Page 4 Data) */}
+      <Section id="event" className="bg-white">
         <div className="space-y-8">
-          <Calendar className="mx-auto text-[#b07d7d]" />
+          <Calendar className="mx-auto text-[#b07d7d] opacity-60" />
           <h2 className="text-2xl font-serif-elegant text-[#b07d7d]">Butiran Majlis</h2>
           
-          <div className="bg-white/50 p-6 rounded-3xl border border-[#b07d7d]/10 shadow-sm backdrop-blur-sm">
-            <p className="font-bold text-[#6b4f4f] mb-1">Isnin</p>
-            <p className="text-2xl font-serif-elegant text-[#b07d7d] mb-4">23 Mac 2026</p>
-            <p className="text-sm text-[#8a6e6e] mb-6">1:00 Petang - 5:00 Petang</p>
+          <div className="bg-[#faf5f5] p-8 rounded-[2.5rem] border border-[#b07d7d]/10 shadow-sm relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <Calendar size={40} />
+            </div>
             
-            <div className="space-y-4">
-              <div className="flex items-start justify-center gap-3 text-left">
-                <MapPin size={18} className="text-[#b07d7d] shrink-0 mt-1" />
-                <p className="text-sm text-[#6b4f4f] leading-relaxed">
-                  {address}
+            <p className="font-bold text-[#b07d7d] tracking-widest uppercase text-[10px] mb-2">Isnin</p>
+            <p className="text-3xl font-serif-elegant text-[#6b4f4f] mb-4">23 Mac 2026</p>
+            
+            <div className="h-px w-12 bg-[#b07d7d]/20 mx-auto mb-6" />
+            
+            <div className="space-y-1 mb-8">
+               <p className="text-sm font-bold text-[#6b4f4f]">Jamuan Makan:</p>
+               <p className="text-lg font-serif-elegant text-[#b07d7d]">1.00 PM</p>
+               <p className="text-[10px] text-[#8a6e6e] uppercase tracking-tighter">(Lepas Zohor)</p>
+            </div>
+            
+            <div className="space-y-4 pt-4 border-t border-[#b07d7d]/5">
+              <div className="flex flex-col items-center text-center">
+                <MapPin size={16} className="text-[#b07d7d] mb-2" />
+                <p className="text-xs text-[#6b4f4f] leading-relaxed font-medium">
+                  65, Jalan KI 5, Taman Krubong Indah,<br />75250 Melaka
                 </p>
               </div>
             </div>
           </div>
 
           <div className="flex justify-center gap-4">
-            <a 
+            <motion.a 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href={mapUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-[#b07d7d] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-[#a06d6d] transition-colors"
+              className="flex items-center gap-2 bg-[#b07d7d] text-white px-8 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl shadow-[#b07d7d]/20 transition-all"
             >
-              <MapIcon size={14} /> Google Maps
-            </a>
+              <MapIcon size={14} /> Navigasi Lokasi
+            </motion.a>
           </div>
           
           <div className="pt-8">
@@ -131,14 +189,14 @@ const App: React.FC = () => {
         </div>
       </Section>
 
-      {/* 4. GUESTBOOK SECTION */}
-      <Section id="guestbook" className="bg-white">
-        <MessageSquare className="mx-auto text-[#b07d7d] mb-4" />
+      {/* 5. GUESTBOOK SECTION */}
+      <Section id="guestbook" className="bg-[#faf5f5]">
+        <MessageSquare className="mx-auto text-[#b07d7d] mb-4 opacity-60" />
         <h2 className="text-2xl font-serif-elegant text-[#b07d7d] mb-8">Ucapan & Doa</h2>
         <Guestbook />
       </Section>
 
-      {/* REFINED DOCK-STYLE BOTTOM NAV BAR */}
+      {/* DOCK-STYLE BOTTOM NAV BAR */}
       <motion.nav 
         initial={{ y: 100 }}
         animate={{ y: 0 }}
@@ -146,17 +204,15 @@ const App: React.FC = () => {
         className="fixed bottom-8 inset-x-0 mx-auto z-50 w-[85%] max-w-sm"
       >
         <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl shadow-[#b07d7d]/20 border border-white/40 p-1 flex items-center justify-around">
-          {/* Section 1: Kenalan */}
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowContactModal(true)} 
             className="flex-1 flex flex-col items-center justify-center py-3 px-2 text-[#6b4f4f] hover:text-[#b07d7d] transition-colors rounded-xl active:bg-[#b07d7d]/5"
           >
             <Phone size={18} strokeWidth={2} />
-            <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Hubungi</span>
+            <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Kenalan</span>
           </motion.button>
           
-          {/* Section 2: Lokasi */}
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollToSection('event')} 
@@ -166,7 +222,6 @@ const App: React.FC = () => {
             <span className="text-[9px] uppercase font-bold tracking-tighter mt-1.5 opacity-80">Lokasi</span>
           </motion.button>
 
-          {/* Section 3: Playlist */}
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={toggleMusic} 
@@ -180,7 +235,6 @@ const App: React.FC = () => {
         </div>
       </motion.nav>
 
-      {/* Contact Modal */}
       <AnimatePresence>
         {showContactModal && (
           <motion.div
@@ -207,7 +261,7 @@ const App: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex justify-between items-center border-b border-[#b07d7d]/10 pb-4">
                   <div>
-                    <p className="text-sm font-bold text-[#6b4f4f]">Encik Kamal</p>
+                    <p className="text-sm font-bold text-[#6b4f4f]">Encik Isnin</p>
                     <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest">Bapa Athirah</p>
                   </div>
                   <a href="tel:0123456789" className="p-2 bg-[#b07d7d]/10 rounded-full text-[#b07d7d] hover:bg-[#b07d7d]/20 transition-colors">
@@ -216,7 +270,7 @@ const App: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-sm font-bold text-[#6b4f4f]">Puan Salmah</p>
+                    <p className="text-sm font-bold text-[#6b4f4f]">Puan Amirohaida</p>
                     <p className="text-[10px] text-[#8a6e6e] uppercase tracking-widest">Ibu Athirah</p>
                   </div>
                   <a href="tel:0123456789" className="p-2 bg-[#b07d7d]/10 rounded-full text-[#b07d7d] hover:bg-[#b07d7d]/20 transition-colors">
@@ -229,10 +283,9 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Increased padding-bottom (pb-32) to ensure credits aren't hidden by the dock */}
-      <footer className="bg-[#f2e6e6] pt-12 pb-32 text-center">
-        <p className="text-[10px] text-[#8a6e6e] uppercase tracking-[0.3em] mb-3">Terima Kasih</p>
-        <div className="flex flex-col items-center gap-1 opacity-70">
+      <footer className="bg-[#faf5f5] pt-12 pb-32 text-center">
+        <p className="text-[10px] text-[#8a6e6e] uppercase tracking-[0.3em] mb-4">Terima Kasih</p>
+        <div className="flex flex-col items-center gap-1 opacity-60">
            <Heart size={10} className="text-[#b07d7d] fill-[#b07d7d]" />
            <p className="text-[9px] text-[#b07d7d] font-medium tracking-wide">Created with much love by Najwa</p>
         </div>
