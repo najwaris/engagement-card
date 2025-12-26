@@ -34,49 +34,33 @@ export const BismillahIcon = () => (
 );
 
 export const RingIcon = () => (
-  <div className="flex justify-center items-center py-2">
+  <div className="flex justify-center items-center py-4">
     <svg 
       className="w-16 h-16 text-[#b07d7d]" 
-      viewBox="0 0 64 64" 
+      viewBox="0 0 24 24" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor" 
+      strokeWidth="1.2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
     >
-      {/* Secondary Ring (Plain) */}
-      <circle 
-        cx="40" 
-        cy="38" 
-        r="14" 
-        stroke="currentColor" 
-        strokeWidth="1.5" 
-        className="opacity-70"
+      {/* Right Ring */}
+      <circle cx="15.5" cy="13.5" r="5.5" />
+      {/* Left Ring - Interlocked */}
+      <path d="M11.5 13.5C11.5 16.5376 9.03757 19 6 19C2.96243 19 0.5 16.5376 0.5 13.5C0.5 10.4624 2.96243 8 6 8C9.03757 8 11.5 10.4624 11.5 13.5Z" />
+      {/* Diamond/Stone for the Left Ring */}
+      <path 
+        d="M6 3L8.5 5.5L6 8L3.5 5.5L6 3Z" 
+        fill="white"
+        strokeWidth="1"
       />
-      {/* Primary Engagement Ring (Interlocked) */}
-      <g>
-        {/* The Diamond / Stone */}
-        <path 
-          d="M24 14L28 10L32 14L28 18L24 14Z" 
-          fill="white" 
-          stroke="currentColor" 
-          strokeWidth="1.5" 
-          strokeLinejoin="round"
-        />
-        <path 
-          d="M28 10V18M24 14H32" 
-          stroke="currentColor" 
-          strokeWidth="0.5" 
-          className="opacity-40"
-        />
-        {/* The Ring Band */}
-        <circle 
-          cx="28" 
-          cy="32" 
-          r="16" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-        />
-      </g>
-      {/* Interlocking detail - small masking lines to simulate depth if needed, 
-          but keeping it clean as a single-stroke aesthetic works best here */}
+      {/* Small glisten detail */}
+      <path d="M6 4.5V6.5M5 5.5H7" strokeWidth="0.5" className="opacity-40" />
+      
+      {/* Interlocking visual detail: shows one ring passing through the other */}
+      <path d="M10.2 11.8C10.5 12.3 10.7 12.9 10.7 13.5" stroke="white" strokeWidth="2.5" />
+      <path d="M10.2 11.8C10.5 12.3 10.7 12.9 10.7 13.5" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   </div>
 );

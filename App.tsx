@@ -1,20 +1,60 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, MapPin, Phone, Heart, ChevronDown, Music, Music2, MessageSquare, Users, Map as MapIcon, X } from 'lucide-react';
+import { Calendar, MapPin, Phone, Heart, ChevronDown, Music, Music2, MessageSquare, Users, Map as MapIcon, X, Play, Pause, SkipForward, SkipBack } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Section from './components/Section';
 import { BismillahIcon, RingIcon } from './constants';
 import Countdown from './components/Countdown';
 import Guestbook from './components/Guestbook';
 
+const SONGS = [
+  {
+    title: "Beautiful In White (Piano)",
+    url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Chapter_One_Cold/Kai_Engel_-_04_-_Moonlight_Reprise.mp3", // Representative piano track
+  },
+  {
+    title: "A Thousand Years (Piano)",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+  },
+  {
+    title: "Can't Help Falling In Love (Piano)",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+  }
+];
+
 const App: React.FC = () => {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const eventDate = "2026-03-23T13:00:00";
   const address = "65, Jalan KI 5, Taman Krubong Indah, 75250 Melaka";
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
+  // Handle Autoplay - Browsers block autoplay without interaction
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      if (audioRef.current && !isMusicPlaying) {
+        audioRef.current.play().then(() => {
+          setIsMusicPlaying(true);
+        }).catch(() => {
+          console.log("Autoplay blocked, waiting for more explicit interaction.");
+        });
+      }
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
+
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+  }, []);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -31,12 +71,24 @@ const App: React.FC = () => {
     }
   };
 
+  const changeSong = (index: number) => {
+    setCurrentSongIndex(index);
+    setIsMusicPlaying(true);
+    // Audio source change is handled by the ref and re-render
+  };
+
+  useEffect(() => {
+    if (audioRef.current && isMusicPlaying) {
+      audioRef.current.play().catch(e => console.error("Playback failed", e));
+    }
+  }, [currentSongIndex]);
+
   return (
     <div className="relative h-screen main-container no-scrollbar overflow-y-auto">
       <audio 
         ref={audioRef} 
         loop 
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+        src={SONGS[currentSongIndex].url} 
       />
 
       {/* 1. HERO SECTION (PDF Page 1 Style) */}
@@ -108,9 +160,6 @@ const App: React.FC = () => {
 
       {/* 3. PRAYER SECTION (PDF Page 5 Data) */}
       <Section id="prayer" className="bg-[#faf5f5] relative overflow-hidden">
-        {/* Visual representation of "torn paper" style from PDF cover */}
-        // <div className="absolute top-0 inset-x-0 h-4 bg-white shadow-sm z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 95% 70%, 90% 100%, 85% 70%, 80% 100%, 75% 70%, 70% 100%, 65% 70%, 60% 100%, 55% 70%, 50% 100%, 45% 70%, 40% 100%, 35% 70%, 30% 100%, 25% 70%, 20% 100%, 15% 70%, 10% 100%, 5% 70%, 0 100%)' }} />
-        
         <div className="py-8 px-4 space-y-8">
           <div className="space-y-2">
             <p className="text-[10px] text-[#b07d7d] font-bold uppercase tracking-[0.2em]">Cincin sebentuk tanda muafakat</p>
@@ -224,7 +273,7 @@ const App: React.FC = () => {
 
           <motion.button 
             whileTap={{ scale: 0.9 }}
-            onClick={toggleMusic} 
+            onClick={() => setShowPlaylistModal(true)} 
             className={`flex-1 flex flex-col items-center justify-center py-3 px-2 transition-all rounded-xl active:bg-[#b07d7d]/5 ${isMusicPlaying ? 'text-[#b07d7d]' : 'text-[#6b4f4f]'}`}
           >
             <div className={isMusicPlaying ? 'animate-spin-slow' : ''}>
@@ -235,6 +284,7 @@ const App: React.FC = () => {
         </div>
       </motion.nav>
 
+      {/* CONTACT MODAL */}
       <AnimatePresence>
         {showContactModal && (
           <motion.div
@@ -277,6 +327,69 @@ const App: React.FC = () => {
                     <Phone size={16} />
                   </a>
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* PLAYLIST MODAL */}
+      <AnimatePresence>
+        {showPlaylistModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-white w-full max-w-xs rounded-[2rem] p-8 relative shadow-2xl overflow-hidden"
+            >
+              <button 
+                onClick={() => setShowPlaylistModal(false)}
+                className="absolute top-6 right-6 text-[#8a6e6e] hover:text-[#b07d7d] transition-colors z-10"
+              >
+                <X size={20} />
+              </button>
+              
+              <h3 className="text-xl font-serif-elegant text-[#b07d7d] mb-2 text-center">Playlist</h3>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-[#8a6e6e] font-bold text-center mb-6">Pilih Lagu</p>
+              
+              <div className="space-y-4 mb-8">
+                {SONGS.map((song, idx) => (
+                  <motion.button
+                    key={idx}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => changeSong(idx)}
+                    className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all ${currentSongIndex === idx ? 'bg-[#b07d7d]/10 text-[#b07d7d]' : 'bg-transparent text-[#6b4f4f] hover:bg-[#b07d7d]/5'}`}
+                  >
+                    <div className={`p-2 rounded-full ${currentSongIndex === idx ? 'bg-[#b07d7d] text-white' : 'bg-[#b07d7d]/10 text-[#b07d7d]'}`}>
+                      {currentSongIndex === idx && isMusicPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                    </div>
+                    <div className="text-left flex-1">
+                      <p className={`text-xs font-bold leading-none mb-1 ${currentSongIndex === idx ? 'text-[#b07d7d]' : 'text-[#6b4f4f]'}`}>{song.title}</p>
+                      {currentSongIndex === idx && <p className="text-[9px] uppercase tracking-widest opacity-60">Sedang Dimainkan</p>}
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-center gap-6 pt-4 border-t border-[#b07d7d]/10">
+                <button onClick={() => changeSong((currentSongIndex - 1 + SONGS.length) % SONGS.length)} className="text-[#8a6e6e] hover:text-[#b07d7d]">
+                  <SkipBack size={20} />
+                </button>
+                <button 
+                  onClick={toggleMusic} 
+                  className="w-12 h-12 bg-[#b07d7d] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#b07d7d]/20"
+                >
+                  {isMusicPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
+                </button>
+                <button onClick={() => changeSong((currentSongIndex + 1) % SONGS.length)} className="text-[#8a6e6e] hover:text-[#b07d7d]">
+                  <SkipForward size={20} />
+                </button>
               </div>
             </motion.div>
           </motion.div>
