@@ -38,6 +38,8 @@ const App: React.FC = () => {
   const [showGiftsModal, setShowGiftsModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isOpening, setIsOpening] = useState(false);
+
 
   const eventDate = "2026-03-23T13:00:00";
   const address = "65, Jalan KI 5, Taman Krubong Indah, 75250 Melaka";
@@ -86,9 +88,31 @@ const App: React.FC = () => {
     setTimeout(() => URL.revokeObjectURL(url), 10000);
   }
 
-  const handleOpenInvitation = () => {
-    setIsOpen(true);
+  // const handleOpenInvitation = () => {
+  //   setIsOpen(true);
 
+  //   if (audioRef.current) {
+  //     audioRef.current.volume = 0.5;
+  //     audioRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => { });
+  //   }
+
+  //   if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+
+  //   setTimeout(() => {
+  //     confetti({
+  //       particleCount: 200,
+  //       spread: 100,
+  //       origin: { y: 0.6 },
+  //       colors: ['#C87374', '#e2b1b1', '#ffffff', '#f8e3e3']
+  //     });
+  //   }, 1000);
+  // };
+
+  const handleOpenInvitation = () => {
+    // Hide the CTA immediately so its exit animation can run
+    setIsOpening(true);
+
+    // Play audio and vibrate immediately
     if (audioRef.current) {
       audioRef.current.volume = 0.5;
       audioRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => { });
@@ -96,15 +120,22 @@ const App: React.FC = () => {
 
     if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
 
+    // Give the CTA a short moment to run its exit animation, then open the gate
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 80);
+
+    // Confetti after a short delay (as before)
     setTimeout(() => {
       confetti({
         particleCount: 200,
         spread: 100,
         origin: { y: 0.6 },
-        colors: ['#C87374', '#e2b1b1', '#ffffff', '#f8e3e3']
+        colors: ['#C87374', '#e2b1b1', '#ffffff', '#f8e3e3'],
       });
     }, 1000);
   };
+
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -174,7 +205,7 @@ const App: React.FC = () => {
             />
 
             {/* Center Seal */}
-            <motion.button
+            {/* <motion.button
               onClick={handleOpenInvitation}
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.03 }}
@@ -226,7 +257,71 @@ const App: React.FC = () => {
                   BUKA JEMPUTAN
                 </motion.span>
               </div>
-            </motion.button>
+            </motion.button> */}
+
+            {/* Center Seal + CTA */}
+            <div className="relative z-10 flex flex-col items-center gap-6">
+              {/* Seal (names only) */}
+              <motion.div
+                initial={{ scale: 1 }}
+                exit={{ scale: 0.85, opacity: 0 }}
+                transition={{ duration: 0.6 }}
+                className="gate-seal ring-glow"
+              >
+                <div className="seal-inner">
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Heart className="seal-heart" fill="currentColor" />
+                  </motion.div>
+
+                  <div className="seal-names">
+                    <motion.span
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="seal-name"
+                    >
+                      Athirah
+                    </motion.span>
+
+                    <span className="seal-and">&</span>
+
+                    <motion.span
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7 }}
+                      className="seal-name"
+                    >
+                      Fahmi
+                    </motion.span>
+                  </div>
+
+                  <div className="seal-divider" />
+                </div>
+              </motion.div>
+
+              {/* Small Open Button */}
+              <AnimatePresence>
+                {!isOpening && (
+                  <motion.button
+                    onClick={handleOpenInvitation}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}   // 👈 FAST exit
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-6 py-3 rounded-full bg-gradient-to-r from-[#C87374] to-[#a85555] text-white text-xs font-bold tracking-[0.35em] shadow-lg shadow-[#C87374]/40 ring-glow glow-button"
+                  >
+                    BUKA JEMPUTAN
+                  </motion.button>
+                )}
+              </AnimatePresence>
+
+            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
@@ -466,8 +561,11 @@ const App: React.FC = () => {
         {/* 3. PRAYER SECTION */}
         <Section id="prayer" className="bg-gradient-to-b from-[#faf5f5] to-[#f6efef] relative overflow-hidden">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-16">
-              <Heart className="w-10 h-10 text-[#C87374] mx-auto mb-6" fill="currentColor" />
+            {/* Section Header */}
+            <div className="text-center">
+              <div className="inline-block p-4 bg-white/50 rounded-2xl mb-6">
+                {/* <Calendar className="w-8 h-8 text-[#C87374] mx-auto" /> */}
+              </div>
               <h2 className="text-4xl font-serif-elegant text-[#6b4f4f] mb-4">
                 Doa & Restu
               </h2>
@@ -506,14 +604,14 @@ const App: React.FC = () => {
         {/* 4. GUESTBOOK SECTION */}
         <Section id="guestbook" className="bg-gradient-to-b from-white to-[#fefafa]">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-16">
-              <MessageSquare className="w-10 h-10 text-[#C87374] mx-auto mb-6" />
+            {/* Section Header */}
+            <div className="text-center">
+              <div className="inline-block p-4 bg-white/50 rounded-2xl mb-6">
+                {/* <Calendar className="w-8 h-8 text-[#C87374] mx-auto" /> */}
+              </div>
               <h2 className="text-4xl font-serif-elegant text-[#6b4f4f] mb-4">
                 Ucapan & Doa
               </h2>
-              <p className="text-sm text-[#8a6e6e] max-w-md mx-auto">
-                Kongsikan ucapan dan doa ikhlas anda untuk memeriahkan lagi majlis kami
-              </p>
               <ElegantDivider />
             </div>
 
@@ -1064,6 +1162,29 @@ const App: React.FC = () => {
           font-weight: 700;
           color: #8a6e6e;
           display: block;
+        }
+
+        /* Glow effects */
+        .ring-glow {
+          box-shadow:
+            0 0 40px rgba(200,115,116,0.25),
+            0 0 100px rgba(200,115,116,0.12),
+            0 20px 60px rgba(200,115,116,0.12);
+          animation: pulse-glow 2.8s ease-in-out infinite;
+        }
+
+        .glow-button {
+          transition: box-shadow 180ms ease, transform 120ms ease;
+        }
+
+        .glow-button:hover {
+          box-shadow: 0 18px 50px rgba(200,115,116,0.45), 0 0 30px rgba(200,115,116,0.22);
+          transform: translateY(-2px);
+        }
+
+        @keyframes pulse-glow {
+          0%, 100% { filter: drop-shadow(0 0 6px rgba(200,115,116,0.12)); }
+          50% { filter: drop-shadow(0 0 22px rgba(200,115,116,0.24)); }
         }
       `}</style>
     </div>

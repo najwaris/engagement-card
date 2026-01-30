@@ -10,6 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@vercel/node": "^5.5.28",
     "canvas-confetti": "^1.6.0",
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.263.1",

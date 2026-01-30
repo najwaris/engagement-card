@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Send, Quote, Sparkles, Flower2 } from 'lucide-react';
+import { Send, Quote, Sparkles, Flower2, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-interface Wish {
-  id: string;
-  name: string;
-  message: string;
-  date: string;
-}
+import { fetchWishes, submitWish, submitWishJson, type Wish } from '../services/api';
 
 interface GuestbookProps {
   onWishAdded?: () => void;
@@ -19,36 +13,95 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
   const [message, setMessage] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [apiStatus, setApiStatus] = useState<'checking' | 'online' | 'offline'>('checking');
+  const [lastSubmission, setLastSubmission] = useState<Wish | null>(null);
 
+  // Load wishes from API
   useEffect(() => {
+    checkApiAndLoadWishes();
+
+    // Set up periodic refresh every 60 seconds
+    const interval = setInterval(() => {
+      loadWishes();
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const checkApiAndLoadWishes = async () => {
+    setApiStatus('checking');
+    setIsLoading(true);
+
+    try {
+      const fetchedWishes = await fetchWishes();
+
+      // If we reached here, API is reachable
+      setApiStatus('online');
+
+      if (fetchedWishes.length > 0) {
+        setWishes(fetchedWishes);
+        localStorage.setItem('engagement_wishes', JSON.stringify(fetchedWishes));
+      } else {
+        loadFromLocalStorage();
+      }
+    } catch (error) {
+      console.error('API failed, using offline mode:', error);
+      setApiStatus('offline');
+      loadFromLocalStorage();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  const loadWishes = async () => {
+    try {
+      const fetchedWishes = await fetchWishes();
+
+      if (fetchedWishes.length > 0) {
+        setWishes(fetchedWishes);
+        // Also update localStorage as cache
+        localStorage.setItem('engagement_wishes', JSON.stringify(fetchedWishes));
+      } else {
+        // If API returns empty, check localStorage
+        loadFromLocalStorage();
+      }
+    } catch (error) {
+      console.error('Failed to load wishes from API:', error);
+      loadFromLocalStorage();
+    }
+  };
+
+  const loadFromLocalStorage = () => {
     const saved = localStorage.getItem('engagement_wishes');
     if (saved) {
       setWishes(JSON.parse(saved));
     } else {
-      const defaults = [
-        { 
-          id: '1', 
-          name: 'Zafirah & Rizwan', 
-          message: 'Selamat bertunang Athirah & Fahmi! Semoga dipermudahkan segala urusan ke jinjang pelamin. Barakallah!', 
-          date: '12/10/2025' 
-        },
-        { 
-          id: '2', 
-          name: 'Amirul Hakim', 
-          message: 'Tahniah korang! Doa kami menyertai kalian. Tak sabar nak tunggu hari besar nanti.', 
-          date: '15/10/2025' 
-        },
-        { 
-          id: '3', 
-          name: 'Nadia & Aiman', 
-          message: 'Semoga ikatan ini diberkati hingga ke syurga. Tahniah Athirah! Moga menjadi pasangan yang sakinah mawaddah warahmah.', 
-          date: '18/10/2025' 
-        }
-      ];
-      setWishes(defaults);
-      localStorage.setItem('engagement_wishes', JSON.stringify(defaults));
+      setWishes(getDefaultWishes());
     }
-  }, []);
+  };
+
+  const getDefaultWishes = (): Wish[] => [
+    {
+      id: '1',
+      name: 'Zafirah & Rizwan',
+      message: 'Selamat bertunang Athirah & Fahmi! Semoga dipermudahkan segala urusan ke jinjang pelamin. Barakallah!',
+      date: '12/10/2025'
+    },
+    {
+      id: '2',
+      name: 'Amirul Hakim',
+      message: 'Tahniah korang! Doa kami menyertai kalian. Tak sabar nak tunggu hari besar nanti.',
+      date: '15/10/2025'
+    },
+    {
+      id: '3',
+      name: 'Nadia & Aiman',
+      message: 'Semoga ikatan ini diberkati hingga ke syurga. Tahniah Athirah! Moga menjadi pasangan yang sakinah mawaddah warahmah.',
+      date: '18/10/2025'
+    }
+  ];
 
   useEffect(() => {
     if (wishes.length <= 1) return;
@@ -63,26 +116,86 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
     if (!name.trim() || !message.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
-    
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
 
-    const newWish: Wish = {
-      id: Date.now().toString(),
+    // Create temporary wish for immediate UI feedback
+    const tempWish: Wish = {
+      id: `temp_${Date.now()}`,
       name: name.trim(),
       message: message.trim(),
       date: new Date().toLocaleDateString('ms-MY'),
+      timestamp: new Date().toISOString()
     };
 
-    const updated = [newWish, ...wishes];
-    setWishes(updated);
-    localStorage.setItem('engagement_wishes', JSON.stringify(updated));
-    setName('');
-    setMessage('');
-    setCurrentIndex(0);
-    setIsSubmitting(false);
-    if (onWishAdded) onWishAdded();
+    // Add to UI immediately for better UX
+    const updatedWithTemp = [tempWish, ...wishes];
+    setWishes(updatedWithTemp);
+    setLastSubmission(tempWish);
+
+    try {
+      let submittedWish: Wish | null = null;
+
+      // Try JSON submission first
+      submittedWish = await submitWishJson(name.trim(), message.trim());
+
+      // If JSON fails, try URL parameter method
+      if (!submittedWish) {
+        submittedWish = await submitWish(name.trim(), message.trim());
+      }
+
+      if (submittedWish) {
+        // Replace temp wish with real one from API
+        const updated = [submittedWish, ...wishes.filter(w => w.id !== tempWish.id)];
+        setWishes(prev =>
+          [submittedWish, ...prev.filter(w => w.id !== tempWish.id)]
+        );
+
+
+        // Save to localStorage
+        localStorage.setItem('engagement_wishes', JSON.stringify(updated));
+
+        console.log('Successfully saved to Google Sheets:', submittedWish);
+      } else {
+        // API failed, keep the temp wish and save to localStorage only
+        const updated = updatedWithTemp;
+        localStorage.setItem('engagement_wishes', JSON.stringify(updated));
+
+        console.log('Saved to localStorage only (API failed)');
+      }
+
+      // Show success
+      if (onWishAdded) onWishAdded();
+
+      // Reset form
+      setName('');
+      setMessage('');
+      setCurrentIndex(0);
+
+    } catch (error) {
+      console.error('Submission error:', error);
+      // Keep the temp wish in the list
+      localStorage.setItem('engagement_wishes', JSON.stringify(updatedWithTemp));
+
+      if (onWishAdded) onWishAdded();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const handleRefresh = async () => {
+    setIsLoading(true);
+    await checkApiAndLoadWishes();
+  };
+
+  if (isLoading) {
+    return (
+      <div className="w-full space-y-10 relative">
+        <div className="text-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C87374] mx-auto"></div>
+          <p className="mt-4 text-sm text-[#6b4f4f]">Memuatkan ucapan...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full space-y-10 relative">
@@ -94,10 +207,35 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
         <Flower2 size={24} />
       </div>
 
+      {/* API Status Indicator */}
+      <div className="absolute top-4 right-4 z-20">
+        <div className="flex items-center gap-2">
+          {apiStatus === 'online' && (
+            <div className="flex items-center gap-1 text-xs text-green-600">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>Online</span>
+            </div>
+          )}
+          {apiStatus === 'offline' && (
+            <div className="flex items-center gap-1 text-xs text-amber-600">
+              <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+              <span>Offline Mode</span>
+            </div>
+          )}
+          <button
+            onClick={handleRefresh}
+            className="p-1 hover:bg-[#C87374]/10 rounded-full transition-colors"
+            title="Refresh wishes"
+          >
+            <RefreshCw size={14} className="text-[#6b4f4f]" />
+          </button>
+        </div>
+      </div>
+
       {/* Featured Wish Gallery */}
       <div className="relative h-52">
         <AnimatePresence mode="wait">
-          {wishes.length > 0 && (
+          {wishes.length > 0 ? (
             <motion.div
               key={wishes[currentIndex].id}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -106,9 +244,15 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="absolute inset-0 flex flex-col items-center justify-center text-center px-10 bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-xl rounded-[2.5rem] border border-white/60 shadow-[0_25px_50px_-12px_rgba(200,115,116,0.15)] overflow-hidden"
             >
-              {/* Animated background pattern */}
-              <div className="absolute inset-0 opacity-[0.02] bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 3C15.089 3 3 15.089 3 30c0 14.911 12.089 27 27 27 14.911 0 27-12.089 27-27C57 15.089 44.911 3 30 3z%22 fill=%22%23C87374%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E')]" />
-              
+              {/* Highlight last submission */}
+              {lastSubmission && wishes[currentIndex].id === lastSubmission.id && (
+                <div className="absolute top-4 right-4">
+                  <div className="px-2 py-1 bg-gradient-to-r from-[#C87374] to-[#a85555] text-white text-[10px] rounded-full">
+                    Baru!
+                  </div>
+                </div>
+              )}
+
               <div className="relative z-10">
                 <div className="flex justify-center mb-4">
                   <Quote className="w-5 h-5 text-[#C87374]/30" />
@@ -132,31 +276,36 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
                 </p>
               </div>
             </motion.div>
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-10 bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-xl rounded-[2.5rem] border border-white/60">
+              <p className="text-[#6b4f4f] italic">Tiada ucapan buat masa ini. Jadilah yang pertama!</p>
+            </div>
           )}
         </AnimatePresence>
-        
+
         {/* Enhanced Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-          {wishes.slice(0, 5).map((_, idx) => (
-            <motion.button 
-              key={idx}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setCurrentIndex(idx)}
-              className={`rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#C87374]/30 ${
-                idx === currentIndex 
-                  ? 'w-3 h-3 bg-gradient-to-br from-[#C87374] to-[#a85555] shadow-[0_0_12px_rgba(200,115,116,0.4)]' 
+        {wishes.length > 1 && (
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+            {wishes.slice(0, 5).map((_, idx) => (
+              <motion.button
+                key={idx}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setCurrentIndex(idx)}
+                className={`rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#C87374]/30 ${idx === currentIndex
+                  ? 'w-3 h-3 bg-gradient-to-br from-[#C87374] to-[#a85555] shadow-[0_0_12px_rgba(200,115,116,0.4)]'
                   : 'w-2 h-2 bg-[#C87374]/20 hover:bg-[#C87374]/40'
-              }`}
-            />
-          ))}
-        </div>
+                  }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Guestbook Form */}
-      <motion.form 
+      <motion.form
         layout
-        onSubmit={handleSubmit} 
+        onSubmit={handleSubmit}
         className="relative space-y-4 bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl p-6 rounded-3xl border border-white/60 shadow-[0_20px_40px_rgba(200,115,116,0.1)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -166,6 +315,11 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
         <div className="text-center mb-4">
           <p className="text-xs uppercase tracking-[0.3em] text-[#C87374] font-bold mb-1">
             Kongsi Ucapan & Doa
+          </p>
+          <p className="text-[10px] text-[#8a6e6e] mb-2">
+            {apiStatus === 'online'
+              ? 'Ucapan akan disimpan ke Google Sheets'
+              : 'Mode offline - Ucapan disimpan secara tempatan sahaja'}
           </p>
           <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#C87374]/30 to-transparent mx-auto" />
         </div>
@@ -185,7 +339,7 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
               <div className="w-2 h-2 rounded-full bg-[#C87374]/10" />
             </div>
           </div>
-          
+
           <div className="relative">
             <textarea
               placeholder="Tuliskan ucapan dan doa ikhlas anda..."
@@ -207,9 +361,8 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={isSubmitting}
-          className={`w-full bg-gradient-to-r from-[#C87374] to-[#a85555] text-white py-4 rounded-2xl text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(200,115,116,0.3)] hover:shadow-[0_15px_40px_rgba(200,115,116,0.4)] ${
-            isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
-          }`}
+          className={`w-full bg-gradient-to-r from-[#C87374] to-[#a85555] text-white py-4 rounded-2xl text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(200,115,116,0.3)] hover:shadow-[0_15px_40px_rgba(200,115,116,0.4)] ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+            }`}
         >
           {isSubmitting ? (
             <>
@@ -230,39 +383,54 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#C87374]/20 to-transparent" />
         </div>
-        
+
         <div className="max-h-[200px] overflow-y-auto pr-2 space-y-3 custom-scrollbar text-left pt-2">
           <AnimatePresence initial={false}>
-            {wishes.map((wish, index) => (
-              <motion.div 
-                key={wish.id}
-                layout
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                whileHover={{ x: 4 }}
-                className="bg-gradient-to-r from-white/80 to-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white/40 shadow-sm hover:shadow-md transition-all duration-300 group"
-              >
-                <div className="flex justify-between items-center mb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#C87374] to-[#a85555]" />
-                    <p className="text-xs font-bold text-[#C87374] uppercase tracking-tighter">
-                      {wish.name}
+            {wishes.length > 0 ? (
+              wishes.map((wish, index) => (
+                <motion.div
+                  key={wish.id}
+                  layout
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ x: 4 }}
+                  className="bg-gradient-to-r from-white/80 to-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white/40 shadow-sm hover:shadow-md transition-all duration-300 group relative"
+                >
+                  {/* Temporary indicator */}
+                  {/* {wish.id.startsWith('temp_') && (
+                    <div className="absolute -top-2 -right-2">
+                      <div className="px-2 py-1 bg-amber-500 text-white text-[8px] rounded-full">
+                        Menyimpan...
+                      </div>
+                    </div>
+                  )} */}
+
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#C87374] to-[#a85555]" />
+                      <p className="text-xs font-bold text-[#C87374] uppercase tracking-tighter">
+                        {wish.name}
+                      </p>
+                    </div>
+                    <p className="text-[9px] text-[#8a6e6e] italic opacity-60">
+                      {wish.date}
                     </p>
                   </div>
-                  <p className="text-[9px] text-[#8a6e6e] italic opacity-60">
-                    {wish.date}
+                  <p className="text-xs text-[#6b4f4f] leading-relaxed line-clamp-2 pl-2 border-l-2 border-[#C87374]/10">
+                    {wish.message}
                   </p>
-                </div>
-                <p className="text-xs text-[#6b4f4f] leading-relaxed line-clamp-2 pl-2 border-l-2 border-[#C87374]/10">
-                  {wish.message}
-                </p>
-                
-                {/* Hover effect line */}
-                <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-[#C87374] to-transparent group-hover:w-full transition-all duration-500" />
-              </motion.div>
-            ))}
+
+                  {/* Hover effect line */}
+                  <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-[#C87374] to-transparent group-hover:w-full transition-all duration-500" />
+                </motion.div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-sm text-[#6b4f4f] italic">
+                Tiada ucapan buat masa ini. Kongsikan ucapan anda!
+              </div>
+            )}
           </AnimatePresence>
         </div>
       </div>
