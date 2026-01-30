@@ -624,7 +624,7 @@ const App: React.FC = () => {
           <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C87374]/30 to-transparent" />
 
           <div className="relative z-10 max-w-md mx-auto">
-            <img src="/src/assets/ring.png" alt="Rings" className="w-16 h-16 mx-auto mb-8 opacity-40 object-contain" />
+            <img src="/assets/ring.png" alt="Rings" className="w-16 h-16 mx-auto mb-8 opacity-40 object-contain" />
 
             <p className="text-xs text-[#8a6e6e] uppercase tracking-[0.5em] mb-8 font-bold opacity-70 italic">
               Sekalung Penghargaan
@@ -1006,7 +1006,7 @@ const App: React.FC = () => {
 
   /* Layered background */
   background:
-    url("/src/assets/floral-patterns.png") repeat,
+    url("/assets/floral-patterns.png") repeat,
     linear-gradient(
       to bottom,
       #fdf3f3,
