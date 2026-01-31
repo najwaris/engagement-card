@@ -260,9 +260,9 @@ const App: React.FC = () => {
             </motion.button> */}
 
             {/* Center Seal + CTA */}
-            <div className="relative z-10 flex flex-col items-center gap-6">
+            <div className="relative z-10 flex flex-col items-center gap-10">
               {/* Seal (names only) */}
-              <motion.div
+              {/* <motion.div
                 initial={{ scale: 1 }}
                 exit={{ scale: 0.85, opacity: 0 }}
                 transition={{ duration: 0.6 }}
@@ -300,7 +300,23 @@ const App: React.FC = () => {
 
                   <div className="seal-divider" />
                 </div>
+              </motion.div> */}
+
+              <motion.div
+                initial={{ scale: 1 }}
+                exit={{ scale: 0.85, opacity: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative flex items-center justify-center"
+              >
+                <motion.img
+                  src="/assets/crestNew.png"
+                  alt="Family Crest"
+                  className="w-[300px] h-[300px] object-contain"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                />
               </motion.div>
+
 
               {/* Small Open Button */}
               <AnimatePresence>
@@ -446,7 +462,7 @@ const App: React.FC = () => {
               className="max-w-xs mx-auto mb-20 relative"
             >
               <div className="bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-[#C87374]/10">
-                <QuranVerseIcon className="absolute -left-3 -top-3 opacity-10 text-[#C87374] w-12 h-12" />
+                {/* <QuranVerseIcon className="absolute -left-3 -top-3 opacity-10 text-[#C87374] w-12 h-12" /> */}
                 <p className="text-sm text-[#6b4f4f] italic leading-relaxed font-medium text-center">
                   "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya."
                   <br />
@@ -474,7 +490,7 @@ const App: React.FC = () => {
           <div className="max-w-xl mx-auto space-y-16">
             {/* Section Header */}
             <div className="text-center">
-              <div className="inline-block p-4 bg-white/50 rounded-2xl mb-6">
+              <div className="inline-block p-4 rounded-2xl mb-6">
                 {/* <Calendar className="w-8 h-8 text-[#C87374] mx-auto" /> */}
               </div>
               <h2 className="text-4xl font-serif-elegant text-[#6b4f4f] mb-4">
@@ -563,7 +579,7 @@ const App: React.FC = () => {
           <div className="max-w-2xl mx-auto">
             {/* Section Header */}
             <div className="text-center">
-              <div className="inline-block p-4 bg-white/50 rounded-2xl mb-6">
+              <div className="inline-block p-4  rounded-2xl mb-6">
                 {/* <Calendar className="w-8 h-8 text-[#C87374] mx-auto" /> */}
               </div>
               <h2 className="text-4xl font-serif-elegant text-[#6b4f4f] mb-4">
@@ -590,12 +606,12 @@ const App: React.FC = () => {
 
               {/* Amen Section */}
               <div className="mt-16 pt-12 border-t border-[#C87374]/10 text-center">
-                <p className="text-5xl font-arabic text-[#C87374] mb-6">
+                <p className="text-3xl font-arabic text-[#C87374] mb-6">
                   آمِيْن يَا رَبَّ الْعَالَمِيْن
                 </p>
-                <p className="text-sm text-[#8a6e6e] uppercase tracking-[0.3em] font-bold">
+                {/* <p className="text-sm text-[#8a6e6e] uppercase tracking-[0.3em] font-bold">
                   Amin Ya Rabbal 'Alamin
-                </p>
+                </p> */}
               </div>
             </motion.div>
           </div>
@@ -606,7 +622,7 @@ const App: React.FC = () => {
           <div className="max-w-2xl mx-auto">
             {/* Section Header */}
             <div className="text-center">
-              <div className="inline-block p-4 bg-white/50 rounded-2xl mb-6">
+              <div className="inline-block p-4 rounded-2xl mb-6">
                 {/* <Calendar className="w-8 h-8 text-[#C87374] mx-auto" /> */}
               </div>
               <h2 className="text-4xl font-serif-elegant text-[#6b4f4f] mb-4">
@@ -998,15 +1014,15 @@ const App: React.FC = () => {
 
         /* Panels */
         .gate-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  filter: contrast(1.05) saturate(0.9);
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 50%;
+          filter: saturate(0.85) contrast(0.95);
 
   /* Layered background */
   background:
-    url("/assets/floral-patterns.png") repeat,
+    url("/assets/blueFlower.jpg") repeat,
     linear-gradient(
       to bottom,
       #fdf3f3,
@@ -1014,7 +1030,7 @@ const App: React.FC = () => {
     );
 
   background-size:
-    220px 220px, /* pattern size — tweak this */
+    280px 280px, /* pattern size — tweak this */
     cover;
 
   background-position:
@@ -1077,26 +1093,26 @@ const App: React.FC = () => {
 
 
         /* Seal */
-        .gate-seal {
-          position: relative;
-          width: 360px;
-          height: 360px;
-          border-radius: 50%;
-          background: linear-gradient(
-            145deg,
-            rgba(255,255,255,0.95),
-            rgba(255,255,255,0.85)
-          );
-          backdrop-filter: blur(18px);
-          border: 2px solid rgba(200,115,116,0.35);
-          box-shadow:
-            0 30px 60px rgba(200,115,116,0.35),
-            inset 0 0 30px rgba(255,255,255,0.6);
-          display: grid;
-          place-items: center;
-          cursor: pointer;
-          padding: 0;
-        }
+        // .gate-seal {
+        //   position: relative;
+        //   width: 360px;
+        //   height: 360px;
+        //   border-radius: 50%;
+        //   background: linear-gradient(
+        //     145deg,
+        //     rgba(255,255,255,0.95),
+        //     rgba(255,255,255,0.85)
+        //   );
+        //   backdrop-filter: blur(18px);
+        //   border: 2px solid rgba(200,115,116,0.35);
+        //   box-shadow:
+        //     0 30px 60px rgba(200,115,116,0.35),
+        //     inset 0 0 30px rgba(255,255,255,0.6);
+        //   display: grid;
+        //   place-items: center;
+        //   cursor: pointer;
+        //   padding: 0;
+        // }
 
         /* Inner layout */
         .seal-inner {
@@ -1186,6 +1202,14 @@ const App: React.FC = () => {
           0%, 100% { filter: drop-shadow(0 0 6px rgba(200,115,116,0.12)); }
           50% { filter: drop-shadow(0 0 22px rgba(200,115,116,0.24)); }
         }
+
+        .crest-emboss {
+          filter:
+          drop-shadow(0 2px 2px rgba(0,0,0,0.12))
+          drop-shadow(0 10px 25px rgba(200,115,116,0.25));
+          opacity: 0.92;
+        }
+
       `}</style>
     </div>
   );
