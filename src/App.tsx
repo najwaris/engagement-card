@@ -309,9 +309,9 @@ const App: React.FC = () => {
                 className="relative flex items-center justify-center"
               >
                 <motion.img
-                  src="/assets/crestNew.png"
+                  src="/assets/initial.png"
                   alt="Family Crest"
-                  className="w-[300px] h-[300px] object-contain"
+                  className="w-[500px] h-[500px] object-contain"
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -323,18 +323,25 @@ const App: React.FC = () => {
                 {!isOpening && (
                   <motion.button
                     onClick={handleOpenInvitation}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.2 }}   // 👈 FAST exit
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 py-3 rounded-full bg-gradient-to-r from-[#C87374] to-[#a85555] text-white text-xs font-bold tracking-[0.35em] shadow-lg shadow-[#C87374]/40 ring-glow glow-button"
+                    exit={{ opacity: 0, scale: 0.92 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="bg-transparent p-0 border-none outline-none"
+                    aria-label="Buka Jemputan"
                   >
-                    BUKA JEMPUTAN
+                    <img
+                      src="/assets/button4.png"
+                      alt="Buka Jemputan"
+                      className="w-[220px] h-auto select-none"
+                      draggable={false}
+                    />
                   </motion.button>
                 )}
               </AnimatePresence>
+
 
             </div>
 
@@ -1022,7 +1029,7 @@ const App: React.FC = () => {
 
   /* Layered background */
   background:
-    url("/assets/blueFlower.jpg") repeat,
+    url("/assets/image.png") repeat,
     linear-gradient(
       to bottom,
       #fdf3f3,
@@ -1046,7 +1053,7 @@ const App: React.FC = () => {
 
         .gate-panel.left {
   left: 0;
-  border-right: 1px solid rgba(200, 115, 116, 0.25);
+  // border-right: 1px solid rgba(200, 115, 116, 0.25);
   background-position:
     right center,
     center;
@@ -1054,7 +1061,7 @@ const App: React.FC = () => {
 
 .gate-panel.right {
   right: 0;
-  border-left: 1px solid rgba(200, 115, 116, 0.25);
+  // border-left: 1px solid rgba(200, 115, 116, 0.25);
   background-position:
     left center,
     center;
