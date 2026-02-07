@@ -190,8 +190,8 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
     return (
       <div className="w-full space-y-10 relative">
         <div className="text-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C87374] mx-auto"></div>
-          <p className="mt-4 text-sm text-[#6b4f4f]">Memuatkan ucapan...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#7b6a58] mx-auto"></div>
+          <p className="mt-4 text-sm text-[#2f2a26]">Memuatkan ucapan...</p>
         </div>
       </div>
     );
@@ -200,10 +200,10 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
   return (
     <div className="w-full space-y-10 relative">
       {/* Decorative corner elements */}
-      <div className="absolute -top-6 -left-6 text-[#C87374]/10">
+      <div className="absolute -top-6 -left-6 text-[#7b6a58]/10">
         <Flower2 size={24} />
       </div>
-      <div className="absolute -top-6 -right-6 text-[#C87374]/10">
+      <div className="absolute -top-6 -right-6 text-[#7b6a58]/10">
         <Flower2 size={24} />
       </div>
 
@@ -224,10 +224,10 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
           )}
           <button
             onClick={handleRefresh}
-            className="p-1 hover:bg-[#C87374]/10 rounded-full transition-colors"
+            className="p-1 hover:bg-[#7b6a58]/10 rounded-full transition-colors"
             title="Refresh wishes"
           >
-            <RefreshCw size={14} className="text-[#6b4f4f]" />
+            <RefreshCw size={14} className="text-[#2f2a26]" />
           </button>
         </div>
       </div>
@@ -242,12 +242,12 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 flex flex-col items-center justify-center text-center px-10 bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-xl rounded-[2.5rem] border border-white/60 shadow-[0_25px_50px_-12px_rgba(200,115,116,0.15)] overflow-hidden"
+              className="absolute inset-0 flex flex-col items-center justify-center text-center px-10 bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-xl rounded-[2.5rem] border border-white/60 shadow-[0_25px_50px_-12px_rgba(123,106,88,0.15)] overflow-hidden"
             >
               {/* Highlight last submission */}
               {lastSubmission && wishes[currentIndex].id === lastSubmission.id && (
                 <div className="absolute top-4 right-4">
-                  <div className="px-2 py-1 bg-gradient-to-r from-[#C87374] to-[#a85555] text-white text-[10px] rounded-full">
+                  <div className="px-2 py-1 bg-gradient-to-r from-[#7b6a58] to-[#5b4d3f] text-white text-[10px] rounded-full">
                     Baru!
                   </div>
                 </div>
@@ -255,30 +255,30 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
 
               <div className="relative z-10">
                 <div className="flex justify-center mb-4">
-                  <Quote className="w-5 h-5 text-[#C87374]/30" />
+                  <Quote className="w-5 h-5 text-[#7b6a58]/30" />
                 </div>
-                <p className="text-[#6b4f4f] font-serif-elegant italic text-sm md:text-base leading-relaxed mb-4 line-clamp-3 px-4">
+                <p className="text-[#2f2a26] font-serif-elegant italic text-sm md:text-base leading-relaxed mb-4 line-clamp-3 px-4">
                   "{wishes[currentIndex].message}"
                 </p>
                 <div className="flex items-center justify-center gap-3">
-                  <div className="h-px w-6 bg-gradient-to-r from-transparent via-[#C87374]/20 to-[#C87374]/40" />
+                  <div className="h-px w-6 bg-gradient-to-r from-transparent via-[#7b6a58]/20 to-[#7b6a58]/40" />
                   <div className="flex items-center gap-2">
-                    <Sparkles size={10} className="text-[#C87374]/40" />
-                    <p className="text-xs font-bold text-[#C87374] uppercase tracking-[0.15em]">
+                    <Sparkles size={10} className="text-[#7b6a58]/40" />
+                    <p className="text-xs font-bold text-[#7b6a58] uppercase tracking-[0.15em]">
                       {wishes[currentIndex].name}
                     </p>
-                    <Sparkles size={10} className="text-[#C87374]/40" />
+                    <Sparkles size={10} className="text-[#7b6a58]/40" />
                   </div>
-                  <div className="h-px w-6 bg-gradient-to-l from-transparent via-[#C87374]/20 to-[#C87374]/40" />
+                  <div className="h-px w-6 bg-gradient-to-l from-transparent via-[#7b6a58]/20 to-[#7b6a58]/40" />
                 </div>
-                <p className="text-[10px] text-[#8a6e6e]/60 mt-2">
+                <p className="text-[10px] text-[#6a5f56]/60 mt-2">
                   {wishes[currentIndex].date}
                 </p>
               </div>
             </motion.div>
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-10 bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-xl rounded-[2.5rem] border border-white/60">
-              <p className="text-[#6b4f4f] italic">Tiada ucapan buat masa ini. Jadilah yang pertama!</p>
+              <p className="text-[#2f2a26] italic">Tiada ucapan buat masa ini. Jadilah yang pertama!</p>
             </div>
           )}
         </AnimatePresence>
@@ -292,9 +292,9 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setCurrentIndex(idx)}
-                className={`rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#C87374]/30 ${idx === currentIndex
-                  ? 'w-3 h-3 bg-gradient-to-br from-[#C87374] to-[#a85555] shadow-[0_0_12px_rgba(200,115,116,0.4)]'
-                  : 'w-2 h-2 bg-[#C87374]/20 hover:bg-[#C87374]/40'
+                className={`rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#7b6a58]/30 ${idx === currentIndex
+                  ? 'w-3 h-3 bg-gradient-to-br from-[#7b6a58] to-[#5b4d3f] shadow-[0_0_12px_rgba(123,106,88,0.4)]'
+                  : 'w-2 h-2 bg-[#7b6a58]/20 hover:bg-[#7b6a58]/40'
                   }`}
               />
             ))}
@@ -306,22 +306,22 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
       <motion.form
         layout
         onSubmit={handleSubmit}
-        className="relative space-y-4 bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl p-6 rounded-3xl border border-white/60 shadow-[0_20px_40px_rgba(200,115,116,0.1)]"
+        className="relative space-y-4 bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl p-6 rounded-3xl border border-white/60 shadow-[0_20px_40px_rgba(123,106,88,0.1)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
         {/* Form header */}
         <div className="text-center mb-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#C87374] font-bold mb-1">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#7b6a58] font-bold mb-1">
             Kongsi Ucapan & Doa
           </p>
-          <p className="text-[10px] text-[#8a6e6e] mb-2">
+          <p className="text-[10px] text-[#6a5f56] mb-2">
             {apiStatus === 'online'
               ? 'Ucapan akan disimpan ke Google Sheets'
               : 'Mode offline - Ucapan disimpan secara tempatan sahaja'}
           </p>
-          <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#C87374]/30 to-transparent mx-auto" />
+          <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#7b6a58]/30 to-transparent mx-auto" />
         </div>
 
         <div className="space-y-4">
@@ -331,12 +331,12 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
               placeholder="Nama Anda"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-white/90 border border-[#C87374]/10 rounded-2xl px-5 py-4 text-sm text-[#6b4f4f] focus:outline-none focus:ring-2 focus:ring-[#C87374]/20 focus:border-transparent placeholder:text-[#8a6e6e]/50 transition-all duration-300 hover:border-[#C87374]/20"
+              className="w-full bg-white/90 border border-[#7b6a58]/10 rounded-2xl px-5 py-4 text-sm text-[#2f2a26] focus:outline-none focus:ring-2 focus:ring-[#7b6a58]/20 focus:border-transparent placeholder:text-[#6a5f56]/50 transition-all duration-300 hover:border-[#7b6a58]/20"
               required
               disabled={isSubmitting}
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2">
-              <div className="w-2 h-2 rounded-full bg-[#C87374]/10" />
+              <div className="w-2 h-2 rounded-full bg-[#7b6a58]/10" />
             </div>
           </div>
 
@@ -346,12 +346,12 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={3}
-              className="w-full bg-white/90 border border-[#C87374]/10 rounded-2xl px-5 py-4 text-sm text-[#6b4f4f] focus:outline-none focus:ring-2 focus:ring-[#C87374]/20 focus:border-transparent placeholder:text-[#8a6e6e]/50 transition-all duration-300 hover:border-[#C87374]/20 resize-none"
+              className="w-full bg-white/90 border border-[#7b6a58]/10 rounded-2xl px-5 py-4 text-sm text-[#2f2a26] focus:outline-none focus:ring-2 focus:ring-[#7b6a58]/20 focus:border-transparent placeholder:text-[#6a5f56]/50 transition-all duration-300 hover:border-[#7b6a58]/20 resize-none"
               required
               disabled={isSubmitting}
             />
             <div className="absolute right-4 top-4">
-              <div className="w-2 h-2 rounded-full bg-[#C87374]/10" />
+              <div className="w-2 h-2 rounded-full bg-[#7b6a58]/10" />
             </div>
           </div>
         </div>
@@ -361,7 +361,7 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={isSubmitting}
-          className={`w-full bg-gradient-to-r from-[#C87374] to-[#a85555] text-white py-4 rounded-2xl text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(200,115,116,0.3)] hover:shadow-[0_15px_40px_rgba(200,115,116,0.4)] ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+          className={`w-full bg-gradient-to-r from-[#7b6a58] to-[#5b4d3f] text-white py-4 rounded-2xl text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(123,106,88,0.3)] hover:shadow-[0_15px_40px_rgba(123,106,88,0.4)] ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
             }`}
         >
           {isSubmitting ? (
@@ -381,7 +381,7 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
       {/* List Scroll Area */}
       <div className="relative">
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#C87374]/20 to-transparent" />
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#7b6a58]/20 to-transparent" />
         </div>
 
         <div className="max-h-[200px] overflow-y-auto pr-2 space-y-3 custom-scrollbar text-left pt-2">
@@ -409,25 +409,25 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
 
                   <div className="flex justify-between items-center mb-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#C87374] to-[#a85555]" />
-                      <p className="text-xs font-bold text-[#C87374] uppercase tracking-tighter">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#7b6a58] to-[#5b4d3f]" />
+                      <p className="text-xs font-bold text-[#7b6a58] uppercase tracking-tighter">
                         {wish.name}
                       </p>
                     </div>
-                    <p className="text-[9px] text-[#8a6e6e] italic opacity-60">
+                    <p className="text-[9px] text-[#6a5f56] italic opacity-60">
                       {wish.date}
                     </p>
                   </div>
-                  <p className="text-xs text-[#6b4f4f] leading-relaxed line-clamp-2 pl-2 border-l-2 border-[#C87374]/10">
+                  <p className="text-xs text-[#2f2a26] leading-relaxed line-clamp-2 pl-2 border-l-2 border-[#7b6a58]/10">
                     {wish.message}
                   </p>
 
                   {/* Hover effect line */}
-                  <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-[#C87374] to-transparent group-hover:w-full transition-all duration-500" />
+                  <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-[#7b6a58] to-transparent group-hover:w-full transition-all duration-500" />
                 </motion.div>
               ))
             ) : (
-              <div className="text-center py-8 text-sm text-[#6b4f4f] italic">
+              <div className="text-center py-8 text-sm text-[#2f2a26] italic">
                 Tiada ucapan buat masa ini. Kongsikan ucapan anda!
               </div>
             )}
@@ -440,15 +440,15 @@ const Guestbook: React.FC<GuestbookProps> = ({ onWishAdded }) => {
           width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(200, 115, 116, 0.05);
+          background: rgba(123, 106, 88, 0.05);
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, rgba(200, 115, 116, 0.2), rgba(200, 115, 116, 0.4));
+          background: linear-gradient(to bottom, rgba(123, 106, 88, 0.2), rgba(123, 106, 88, 0.4));
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, rgba(200, 115, 116, 0.3), rgba(200, 115, 116, 0.5));
+          background: linear-gradient(to bottom, rgba(123, 106, 88, 0.3), rgba(123, 106, 88, 0.5));
         }
       `}</style>
     </div>

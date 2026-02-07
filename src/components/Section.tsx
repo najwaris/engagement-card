@@ -33,7 +33,7 @@ const Section: React.FC<SectionProps> = ({ id, className = "", children }) => {
     >
       {/* Parallax-style floating border accents */}
       <motion.img
-        src="/assets/border-top-left.png"
+        src="/assets/top-left.png"
         alt=""
         initial={{ opacity: 0, x: -50, y: -50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -43,7 +43,7 @@ const Section: React.FC<SectionProps> = ({ id, className = "", children }) => {
       />
 
       <motion.img
-        src="/assets/border-top-right.png"
+        src="/assets/top-right.png"
         alt=""
         initial={{ opacity: 0, x: 50, y: -50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -53,7 +53,7 @@ const Section: React.FC<SectionProps> = ({ id, className = "", children }) => {
       />
 
       <motion.img
-        src="/assets/border-bottom-left.png"
+        src="/assets/bottom-left.png"
         alt=""
         initial={{ opacity: 0, x: -50, y: 50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -63,7 +63,7 @@ const Section: React.FC<SectionProps> = ({ id, className = "", children }) => {
       />
 
       <motion.img
-        src="/assets/border-bottom-right.png"
+        src="/assets/bottom-right.png"
         alt=""
         initial={{ opacity: 0, x: 50, y: 50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}

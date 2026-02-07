@@ -2,10 +2,10 @@ import React from 'react';
 import { Heart } from 'lucide-react';
 
 export const COLORS = {
-  primary: '#C87374',
-  secondary: '#6b4f4f',
+  primary: '#7b6a58',
+  secondary: '#2f2a26',
   background: '#fff9f9',
-  accent: '#e2b1b1',
+  accent: '#c3b5a6',
   gold: '#D4AF37',
 };
 
@@ -19,7 +19,7 @@ export const FloralCorner = ({ className = "", opacity = 0.3 }: { className?: st
   >
     <defs>
       <linearGradient id="elegantGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#C87374" />
+        <stop offset="0%" stopColor="#7b6a58" />
         <stop offset="30%" stopColor="#E89999" />
         <stop offset="70%" stopColor="#F0ADAD" />
         <stop offset="100%" stopColor="#F5D5D5" />
@@ -35,7 +35,7 @@ export const FloralCorner = ({ className = "", opacity = 0.3 }: { className?: st
       </filter>
 
       <pattern id="floralPattern" patternUnits="userSpaceOnUse" width="4" height="4">
-        <circle cx="2" cy="2" r="0.5" fill="#C87374" opacity="0.1" />
+        <circle cx="2" cy="2" r="0.5" fill="#7b6a58" opacity="0.1" />
       </pattern>
     </defs>
 
@@ -110,12 +110,12 @@ export const BismillahIcon = ({ className = "" }: { className?: string }) => (
   <div className={`relative flex justify-center my-8 ${className}`}>
     {/* Background glow effect - positioned properly */}
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="w-48 h-48 bg-gradient-to-r from-[#C87374]/10 to-transparent rounded-full blur-xl opacity-50" />
+      <div className="w-48 h-48 bg-gradient-to-r from-[#7b6a58]/10 to-transparent rounded-full blur-xl opacity-50" />
     </div>
     
     {/* Main text */}
     <span 
-      className="relative text-5xl md:text-6xl bg-gradient-to-b from-[#7a4a4a] via-[#C87374] to-[#e2b1b1] bg-clip-text text-transparent leading-none select-none drop-shadow-lg"
+      className="relative text-5xl md:text-6xl bg-gradient-to-b from-[#7a4a4a] via-[#7b6a58] to-[#c3b5a6] bg-clip-text text-transparent leading-none select-none drop-shadow-lg"
       style={{ fontFamily: 'Amiri, serif' }}
       aria-label="Bismillah"
     >
@@ -129,11 +129,11 @@ export const RingIcon = ({ className = "w-20 h-20" }: { className?: string }) =>
   <div className="relative flex justify-center items-center">
     {/* Outer glow rings */}
     <div className="absolute inset-0 animate-ping opacity-20">
-      <div className="w-full h-full rounded-full border-2 border-[#C87374]" />
+      <div className="w-full h-full rounded-full border-2 border-[#7b6a58]" />
     </div>
     
     <div className="absolute inset-0 animate-spin-slow">
-      <div className="w-full h-full rounded-full border border-[#C87374]/30" />
+      <div className="w-full h-full rounded-full border border-[#7b6a58]/30" />
     </div>
     
     <svg 
@@ -144,9 +144,9 @@ export const RingIcon = ({ className = "w-20 h-20" }: { className?: string }) =>
     >
       <defs>
         <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#C87374" />
+          <stop offset="0%" stopColor="#7b6a58" />
           <stop offset="50%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#C87374" />
+          <stop offset="100%" stopColor="#7b6a58" />
         </linearGradient>
         
         <linearGradient id="diamondGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -156,7 +156,7 @@ export const RingIcon = ({ className = "w-20 h-20" }: { className?: string }) =>
         </linearGradient>
         
         <filter id="ringShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#C87374" floodOpacity="0.3" />
+          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#7b6a58" floodOpacity="0.3" />
         </filter>
       </defs>
       
@@ -179,7 +179,7 @@ export const RingIcon = ({ className = "w-20 h-20" }: { className?: string }) =>
           <path 
             d="M0 0 L8 8 L0 16 L-8 8 Z" 
             fill="url(#diamondGradient)"
-            stroke="#C87374"
+            stroke="#7b6a58"
             strokeWidth="1"
           />
           <path 
@@ -236,7 +236,7 @@ export const QuranVerseIcon = ({ className = "w-10 h-10" }: { className?: string
       <defs>
         <linearGradient id="quranGradient">
           <stop offset="0%" stopColor="#7a4a4a" />
-          <stop offset="100%" stopColor="#C87374" />
+          <stop offset="100%" stopColor="#7b6a58" />
         </linearGradient>
       </defs>
       
@@ -266,10 +266,10 @@ export const QuranVerseIcon = ({ className = "w-10 h-10" }: { className?: string
 export const ElegantDivider = ({ className = "" }: { className?: string }) => (
   <div className={`relative h-6 flex items-center justify-center ${className}`}>
     <div className="absolute inset-0 flex items-center">
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C87374]/30 to-transparent" />
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#7b6a58]/30 to-transparent" />
     </div>
     <div className="relative px-4">
-      <Heart className="w-4 h-4 text-[#C87374]/50" fill="currentColor" />
+      <Heart className="w-4 h-4 text-[#7b6a58]/50" fill="currentColor" />
     </div>
   </div>
 );
